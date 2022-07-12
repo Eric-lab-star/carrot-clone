@@ -4,7 +4,7 @@ const Upload: NextPage = () => {
   return (
     <div className="py-16 px-5">
       <div className="w-full flex justify-center items-center">
-        <label className="cursor-pointer mb-3 rounded-md h-40 w-full border-2 border-dashed flex justify-center items-center text-slate-400 hover:bg-amber-500 hover:border-white transition-colors hover:text-white">
+        <label className="cursor-pointer mb-3 rounded-md h-40 w-full border-amber-300 border-2 border-dashed flex justify-center items-center text-amber-300 hover:bg-amber-500 hover:border-white transition-colors hover:text-white">
           <svg
             className="h-16 w-16"
             stroke="currentColor"
@@ -50,6 +50,7 @@ const Upload: NextPage = () => {
           rows={4}
           className="text-xs h-28 max-h-28 min-h-full w-full focus:ouline-none focus:ring-transparent focus:border-amber-500 overflow-scroll"
           id="desc"
+          placeholder="Please write product descriptions(price, brand, suggestion)."
         />
       </div>
       <button className=" rounded-md  w-full py-1 bg-amber-400 text-amber-600 shadow-md mt-2">
