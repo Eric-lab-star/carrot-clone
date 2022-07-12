@@ -10,7 +10,7 @@ const Enter: NextPage = () => {
   const onEmailClick = () => setMethod("email");
   const onPhoneClick = () => setMethod("phone");
   return (
-    <div className={`py-5 px-6 bg-[${BGColor}] min-h-screen text-white`}>
+    <div className={`py-5 px-6 bg-[${BGColor}] min-h-screen text-amber-400`}>
       <h3 className="text-2xl text-center font-semibold">Enter to Carrot</h3>
       <div>
         <div className="text-center">
@@ -20,7 +20,7 @@ const Enter: NextPage = () => {
               className={cls(
                 "pb-2  font-medium border-b-2 transition",
                 method === "email"
-                  ? "border-yellow-300 text-yellow-300"
+                  ? "border-amber-500 text-amber-500"
                   : "border-transparent"
               )}
               onClick={onEmailClick}
@@ -31,7 +31,7 @@ const Enter: NextPage = () => {
               className={cls(
                 "pb-2  font-medium border-b-2 transition",
                 method === "phone"
-                  ? "border-yellow-300 text-yellow-300"
+                  ? "border-amber-500 text-amber-500"
                   : "border-transparent"
               )}
               onClick={onPhoneClick}
