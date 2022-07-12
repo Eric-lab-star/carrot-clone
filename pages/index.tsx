@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex flex-col space-y-5 py-10">
+    <div className="grid grid-cols-1 py-10 lg:grid-cols-3 sm:grid-cols-2">
       {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
         <Link key={i} href={`/items/${i}`}>
-          <div className="flex justify-between border-b px-4 pb-4 cursor-pointer ">
+          <div className="flex justify-between border-b px-4 py-5 cursor-pointer ">
             <div className="flex space-x-3">
               <div className="w-20 h-20 bg-gray-500 rounded-md" />
               <div className="py-2 flex flex-col">
