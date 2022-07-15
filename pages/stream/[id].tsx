@@ -14,6 +14,20 @@ const StreamDetail: NextPage = () => {
             <span className="text-xs font-thin">1시간 전</span>
           </div>
         </div>
+        <div className="mt-5">
+          <h1 className="font-extrabold text-2xl">Galaxy S50</h1>
+          <p className="text-xl font-bold">$140</p>
+          <p className="text-base font-thin py-4 selection:bg-amber-300 selection:text-white">
+            My money&apos;s in that office, right? If she start giving me some
+            bullshit about it ain&apos;t there, and we got to go someplace else
+            and get it, I&apos;m gonna shoot you in the head then and there.
+            Then I&apos;m gonna shoot that bitch in the kneecaps, find out where
+            my goddamn money is. She gonna tell me too. Hey, look at me when
+            I&apos;m talking to you, motherfucker. You listen: we go in there,
+            and that ni**a Winston or anybody else is in there, you the first
+            motherfucker to get shot. You understand?
+          </p>
+        </div>
       </div>
       <div className="px-4 max-h-96 overflow-y-scroll  overscroll-none">
         {[1, 1, 1, 1, 1, 1, 1].map((v, i) => {
