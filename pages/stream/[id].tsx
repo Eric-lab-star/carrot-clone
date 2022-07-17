@@ -29,6 +29,7 @@ const StreamDetail: NextPage = () => {
           </p>
         </div>
       </div>
+      <h1 className="font-extrabold text-2xl px-4">Live Chat</h1>
       <div className="px-4 max-h-96 overflow-y-scroll  overscroll-none">
         {[1, 1, 1, 1, 1, 1, 1].map((v, i) => {
           return (

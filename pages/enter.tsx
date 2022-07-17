@@ -1,8 +1,6 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-const cls = (...className: string[]) => {
-  return className.join(" ");
-};
+import { cls } from "../libs/utils";
 const BGColor = "#e67e22";
 
 const Enter: NextPage = () => {
