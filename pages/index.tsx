@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import ItemProfile from "../components/itemProfile";
 import Layout from "../components/layout";
 
 const Home: NextPage = () => {
@@ -9,16 +10,11 @@ const Home: NextPage = () => {
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <Link key={i} href={`/items/${i}`}>
             <div className="flex justify-between border-b px-4 py-5 cursor-pointer ">
-              <div className="flex space-x-3">
-                <div className="w-20 h-20 bg-gray-500 rounded-md" />
-                <div className="py-2 flex flex-col">
-                  <h3 className="text-gray-900 text-sm font-medium">
-                    New iPhone 14
-                  </h3>
-                  <span className="text-xs text-gray-500">Black</span>
-                  <span className="font-medium mt-1 text-gray-900 ">$95</span>
-                </div>
-              </div>
+              <ItemProfile
+                title="MacBook Pro 15"
+                price="1000"
+                color="space gray"
+              />
               <div className="flex items-end jutify-end space-x-2">
                 <div className="flex space-x-1 justify-center items-center">
                   <svg
