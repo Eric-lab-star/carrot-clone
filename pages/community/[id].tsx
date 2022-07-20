@@ -3,7 +3,7 @@ import Layout from "../../components/layout";
 
 const CommunityDetail: NextPage = () => {
   return (
-    <Layout title="Community Detail">
+    <Layout title="Community Detail" canGoBack>
       <div className="py-16">
         <div className="flex items-center space-x-3 py-2 border px-2">
           <div className="h-12 w-12 rounded-full bg-gray-200" />

@@ -4,8 +4,8 @@ import Layout from "../../components/layout";
 
 const Chats: NextPage = () => {
   return (
-    <Layout title="Chats">
-      <div className="py-16 divide-y-[1px] divide-amber-600">
+    <Layout title="Chats" hasTabBar>
+      <div className="py-4 divide-y-[1px] divide-amber-600">
         {[1, 2, 3, 4, 1, 2].map((v, i) => (
           <Link href={`chats/${i}`} key={i}>
             <div className="px-4 py-2 border-gray-400">

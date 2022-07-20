@@ -4,8 +4,8 @@ import Layout from "../../components/layout";
 
 const Community: NextPage = () => {
   return (
-    <Layout title="Community">
-      <div className="py-16 px-4 ">
+    <Layout title="Community" hasTabBar>
+      <div className="py-4 px-4 ">
         {[1, 2, 3, 4, 5, 6, 7].map((v, i) => (
           <Link key={i} href={`community/${i}`}>
             <div className="max-w-md m-auto hover:cursor-pointer">

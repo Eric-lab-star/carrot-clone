@@ -3,7 +3,7 @@ import Layout from "../../components/layout";
 
 const ItemDetail: NextPage = () => {
   return (
-    <Layout title="Item Detail">
+    <Layout title="Item Detail" canGoBack>
       <div className="px-5 py-10">
         <div className="mb-4">
           <div className="h-80 bg-slate-300" />
@@ -59,7 +59,7 @@ const ItemDetail: NextPage = () => {
             {[1, 2, 3, 4, 5, 6].map((_, i) => (
               <div key={i}>
                 <div className="w-full h-40 bg-gray-400 rounded-md mb-2" />
-                <div className="flex items-center justify-start space-x-2">
+                <div className="flex items-center justify-between space-x-2 ">
                   <h3 className="font-medium text-gray-800">Galaxy S60</h3>
                   <p className="text-sm rounded-md select-none bg-amber-400 p-1 text-white">
                     $6

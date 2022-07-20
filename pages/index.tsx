@@ -20,7 +20,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className="flex items-end jutify-end space-x-2">
-                <div className="flex space-x-1 justify-center ite ms-center">
+                <div className="flex space-x-1 justify-center items-center">
                   <svg
                     className="w-4 h-4"
                     fill="none"

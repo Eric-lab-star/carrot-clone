@@ -3,7 +3,7 @@ import Layout from "../../components/layout";
 
 const Edit = () => {
   return (
-    <Layout title="Edit">
+    <Layout title="Edit" canGoBack>
       <div className="py-16 px-4">
         <form className="mt-1 flex flex-col space-y-3">
           <div className="flex justify-center items-center flex-col space-y-2">

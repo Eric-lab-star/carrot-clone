@@ -1,8 +1,8 @@
 import Layout from "../../components/layout";
 export default function UploadStream() {
   return (
-    <Layout title="Upload">
-      <div className="py-16 px-5 w-full mx-auto max-w-md">
+    <Layout title="Upload" canGoBack>
+      <div className="py-16 w-full mx-auto max-w-md">
         <div className="w-full flex justify-center items-center">
           <label className="cursor-pointer mb-3 rounded-md h-40 w-full border-amber-300 border-2 border-dashed flex justify-center items-center text-amber-300 hover:bg-amber-500 hover:border-white transition-colors hover:text-white">
             <svg

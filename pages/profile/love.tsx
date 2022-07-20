@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 
 const Love: NextPage = () => {
   return (
-    <Layout title="Love">
+    <Layout title="Love" canGoBack>
       <div className="grid grid-cols-1 py-10 lg:grid-cols-3 sm:grid-cols-2">
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <Link key={i} href={`/items/${i}`}>

@@ -4,8 +4,8 @@ import Layout from "../../components/layout";
 
 const Stream: NextPage = () => {
   return (
-    <Layout title="Live">
-      <div className=" py-16 grid md:grid-cols-2 lg:grid-cols-3 ">
+    <Layout title="Live" hasTabBar>
+      <div className=" py-4 grid md:grid-cols-2 lg:grid-cols-3 ">
         {[1, 2, 1, 1, 1].map((v, i) => {
           return (
             <Link href={`stream/${i}`} key={i}>

@@ -3,8 +3,8 @@ import Layout from "../../components/layout";
 
 const Profile: NextPage = () => {
   return (
-    <Layout title="Profile">
-      <div className="py-10 px-4 max-w-lg  w-full mx-auto">
+    <Layout title="Profile" hasTabBar>
+      <div className="py-4 px-4 max-w-lg  w-full mx-auto">
         <div className="flex items-center space-x-3 py-2">
           <div className="h-12 w-12 rounded-full bg-gray-400" />
           <div>

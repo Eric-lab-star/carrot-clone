@@ -3,7 +3,7 @@ import Layout from "../../components/layout";
 
 const StreamDetail: NextPage = () => {
   return (
-    <Layout title="Video">
+    <Layout title="Video" canGoBack>
       <div className=" py-16 ">
         <div className="space-y-3 pt-3 pb-2 px-4">
           <div className="flex justify-center bg-slate-500 rounded-md">
