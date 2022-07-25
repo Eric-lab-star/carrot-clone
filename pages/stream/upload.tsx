@@ -1,24 +1,13 @@
+import Btn from "../../components/btn";
 import Layout from "../../components/layout";
+import VideoSVG from "../../components/svg/video";
 export default function UploadStream() {
   return (
     <Layout title="Upload" canGoBack>
-      <div className="py-16 w-full mx-auto max-w-md">
+      <div className="py-6 px-2 w-full mx-auto max-w-md">
         <div className="w-full flex justify-center items-center">
           <label className="cursor-pointer mb-3 rounded-md h-40 w-full border-amber-300 border-2 border-dashed flex justify-center items-center text-amber-300 hover:bg-amber-500 hover:border-white transition-colors hover:text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
+            <VideoSVG />
             <input type="file" className="hidden" />
           </label>
         </div>
@@ -49,14 +38,12 @@ export default function UploadStream() {
 
           <textarea
             rows={4}
-            className="text-xs h-28 max-h-28 min-h-full w-full focus:ouline-none focus:ring-transparent focus:border-amber-500 overflow-scroll"
+            className="resize-none text-xs h-28 max-h-28 min-h-full w-full focus:ouline-none focus:ring-transparent focus:border-amber-500 overflow-scroll"
             id="desc"
             placeholder="Please write product descriptions(price, brand, suggestion)."
           />
         </div>
-        <button className=" rounded-md  w-full py-1 bg-amber-400 text-amber-600 shadow-md mt-2">
-          Go Live
-        </button>
+        <Btn>Go Live</Btn>
       </div>
     </Layout>
   );

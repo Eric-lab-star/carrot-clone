@@ -19,7 +19,7 @@ export default function Layout({
   const router = useRouter();
   return (
     <div>
-      <Title title={title} canGoBack={canGoBack} router={router} />
+      <Header title={title} canGoBack={canGoBack} router={router} />
       <div className={cls("py-10", hasTabBar ? "pb-17" : "")}>{children}</div>
       {hasTabBar ? (
         <nav className="fixed bottom-0 bg-amber-400 flex justify-center items-center w-full space-x-10 py-1">
@@ -44,7 +44,7 @@ export default function Layout({
   );
 }
 
-const Title = ({ canGoBack, router, title }: ITitleProps) => {
+const Header = ({ canGoBack, router, title }: ITitleProps) => {
   return (
     <div
       className={cls(

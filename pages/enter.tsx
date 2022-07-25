@@ -1,9 +1,9 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import { cls } from "../libs/utils";
-import LoginBtn from "../components/LoginBtn";
 import TwitterSVG from "../components/svg/twitter";
 import GitHubSVG from "../components/svg/github";
+import Btn from "../components/btn";
 
 const Enter: NextPage = () => {
   const [method, setMethod] = useState<"email" | "phone">("email");
@@ -68,10 +68,10 @@ const Enter: NextPage = () => {
               </div>
             ) : null}
           </div>
-          <LoginBtn>
+          <Btn>
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
-          </LoginBtn>
+          </Btn>
         </form>
         <div className="mt-4">
           <div className="relative">
@@ -81,8 +81,8 @@ const Enter: NextPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <LoginBtn SVG={<TwitterSVG />} />
-            <LoginBtn SVG={<GitHubSVG />} />
+            <Btn SVG={<TwitterSVG />} />
+            <Btn SVG={<GitHubSVG />} />
           </div>
         </div>
       </div>
