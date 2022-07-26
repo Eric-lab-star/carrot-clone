@@ -1,6 +1,6 @@
 export default function Profile({ username, toUser }: IProfile) {
   return (
-    <div className="flex space-x-3 py-2">
+    <div className="flex space-x-3">
       <div className={`h-12 aspect-square rounded-full bg-gray-200`} />
       <div>
         <p className="font-medium">{username}</p>

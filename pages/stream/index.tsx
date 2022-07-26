@@ -15,7 +15,7 @@ const Stream: NextPage = () => {
             <Link href={`stream/${i}`} key={i}>
               <div className="space-y-3 pt-3 pb-2 px-4">
                 <div className="w-full aspect-video bg-slate-300 rounded-md shadow-md " />
-                <SmProfile title="Lets try!" desc="1hour ago" />
+                <SmProfile name="Lets try!" desc="1hour ago" />
               </div>
             </Link>
           );

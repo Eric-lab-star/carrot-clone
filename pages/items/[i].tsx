@@ -5,13 +5,15 @@ import Btn from "../../components/btn";
 import Profile from "../../components/profile";
 import Product from "../../components/product";
 import H2 from "../../components/h2";
+import Review from "../../components/review";
+import SmProfile from "../../components/smProfile";
 
 const ItemDetail: NextPage = () => {
   return (
     <Layout title="Item Detail" canGoBack>
-      <div className="px-5 py-5 space-y-10">
+      <div className="px-5 py-5 space-y-3">
         {/* item description div */}
-        <div>
+        <div className="space-y-3">
           <div className="h-80 bg-slate-300" />
           <Profile toUser="view profile" username="Mr.Kim" />
           <Product
@@ -25,6 +27,12 @@ const ItemDetail: NextPage = () => {
               <HeartSVG w="6" h="6" />
             </button>
           </div>
+        </div>
+        {/* review */}
+        <div className="border-t-[1px] pt-3 space-y-5">
+          <SmProfile title="John" star msg="very good" />
+          <SmProfile title="John" star msg="very good" />
+          <SmProfile title="John" star msg="very good" />
         </div>
         {/* similar items */}
         <div className="border-t border-gray-300 pt-3">
