@@ -1,23 +1,16 @@
 import type { NextPage } from "next";
 import CircleBg from "../../components/circleBg";
 import Layout from "../../components/layout";
+import Profile from "../../components/profile";
 import CartSVG from "../../components/svg/cart";
 import HeartSVG from "../../components/svg/heart";
 import ShoppingBagSVG from "../../components/svg/shoppingBag";
 
-const Profile: NextPage = () => {
+const ProfileHome: NextPage = () => {
   return (
     <Layout title="Profile" hasTabBar>
       <div className="py-4 px-4 max-w-lg  w-full mx-auto">
-        <div className="flex items-center space-x-3 py-2">
-          <div className="h-12 w-12 rounded-full bg-gray-400" />
-          <div>
-            <p className="font-medium">Steve Jbs</p>
-            <p className="cursor-pointer hover:text-amber-500 text-xs text-gray-500">
-              Edit profile &rarr;
-            </p>
-          </div>
-        </div>
+        <Profile username="Steven Jobs" toUser="Edit Profile" />
         <div className="flex justify-center items-center space-x-16 mt-2">
           <CircleBg SVG={<CartSVG />} text="판매내역" />
           <CircleBg SVG={<ShoppingBagSVG />} text="구매내역" />
@@ -93,4 +86,4 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+export default ProfileHome;

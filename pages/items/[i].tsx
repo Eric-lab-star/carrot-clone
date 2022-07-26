@@ -13,7 +13,7 @@ const ItemDetail: NextPage = () => {
         {/* item description div */}
         <div>
           <div className="h-80 bg-slate-300" />
-          <Profile toUser="view profile" title="Mr.Kim" />
+          <Profile toUser="view profile" username="Mr.Kim" />
           <Product
             title="IPhone"
             price="149"

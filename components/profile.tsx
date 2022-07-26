@@ -1,9 +1,9 @@
-export default function Profile({ title, toUser }: IProfile) {
+export default function Profile({ username, toUser }: IProfile) {
   return (
     <div className="flex space-x-3 py-2">
       <div className={`h-12 aspect-square rounded-full bg-gray-200`} />
       <div>
-        <p className="font-medium">{title}</p>
+        <p className="font-medium">{username}</p>
         <div className="flex justify-center items-center cursor-pointer hover:text-amber-500 text-xs text-gray-500">
           <div>{toUser}</div>
 
@@ -28,6 +28,6 @@ export default function Profile({ title, toUser }: IProfile) {
 }
 
 interface IProfile {
-  title: string;
+  username: string;
   toUser?: string;
 }
