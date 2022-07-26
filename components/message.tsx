@@ -1,6 +1,6 @@
 export default function MessageInput() {
   return (
-    <div className="fixed rounded-t-md bottom-0 w-screen bg-amber-500 py-2 px-2">
+    <div className="relative rounded-md bottom-2 bg-amber-500 py-2 px-2">
       <div className="flex">
         <input
           type={"text"}

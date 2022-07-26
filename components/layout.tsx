@@ -18,7 +18,7 @@ export default function Layout({
 }: LayoutProps) {
   const router = useRouter();
   return (
-    <div>
+    <div className="">
       <Header title={title} canGoBack={canGoBack} router={router} />
       <div className={cls("py-10", hasTabBar ? "pb-17" : "")}>{children}</div>
       {hasTabBar ? (

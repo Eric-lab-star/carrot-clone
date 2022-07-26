@@ -30,9 +30,9 @@ const ItemDetail: NextPage = () => {
         </div>
         {/* review */}
         <div className="border-t-[1px] pt-3 space-y-5">
-          <SmProfile title="John" star msg="very good" />
-          <SmProfile title="John" star msg="very good" />
-          <SmProfile title="John" star msg="very good" />
+          <SmProfile name="John" star msg="very good" />
+          <SmProfile name="John" star msg="very good" />
+          <SmProfile name="John" star msg="very good" />
         </div>
         {/* similar items */}
         <div className="border-t border-gray-300 pt-3">

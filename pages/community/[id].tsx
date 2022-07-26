@@ -1,64 +1,25 @@
 import type { NextPage } from "next";
+import Question from "../../components/communityQuestion";
+import Counter from "../../components/counter";
 import Layout from "../../components/layout";
+import Profile from "../../components/profile";
+import CheckSVG from "../../components/svg/check";
+import CommentSVG from "../../components/svg/comment";
 
 const CommunityDetail: NextPage = () => {
   return (
     <Layout title="Community Detail" canGoBack>
-      <div className="py-16">
-        <div className="flex items-center space-x-3 py-2 border px-2">
-          <div className="h-12 w-12 rounded-full bg-gray-200" />
-          <div>
-            <p className="font-medium">Steve Jebs</p>
-            <p className="cursor-pointer hover:text-amber-500 text-xs text-gray-500">
-              View profile &rarr;
-            </p>
-          </div>
-        </div>
-        <div className="px-4">
-          <span className="text-xs bg-amber-400 px-2 py-[0.5] text-white rounded-sm">
-            동네질문
-          </span>
-          <span className="flex justify-start text-lg items-center py-2">
-            <span className="text-xl text-amber-400">Q.</span> What is the best
-            mandu restaurant?
-          </span>
-        </div>
-        <div className="border-y-gray-300 border-y py-1 flex space-x-2">
-          <span className="flex items-center pl-4 text-sm space-x-1 hover:cursor-default">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-            <span>궁금해요 1</span>
-          </span>
-          <span className="flex items-center text-sm space-x-1 hover:cursor-default">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-              ></path>
-            </svg>
-            <span>답변 1</span>
-          </span>
-        </div>
+      <div className="py-4 px-4">
+        <Profile username="Steven Jobs" view />
+        <Question
+          question="What is the best ramen restaurant?"
+          name="John"
+          time="07-12"
+          check={1}
+          comment={1}
+          category="동내생활"
+        />
+
         {[1, 2, 3, 4, 5].map((v, i) => {
           return (
             <div
@@ -71,7 +32,7 @@ const CommunityDetail: NextPage = () => {
                   <span className="text-sm mr-2">Steven Jobs</span>
                   <span className="text-xs text-gray-300">2시간 전</span>
                   <div className="text-sm">
-                    The best mandu restaurant is the one next to my house{" "}
+                    The best mandu restaurant is the one next to my house
                   </div>
                 </div>
               </div>

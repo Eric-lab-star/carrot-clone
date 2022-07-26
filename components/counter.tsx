@@ -1,6 +1,6 @@
-const Counter = ({ SVG, text }: ICounter) => {
+const Counter = ({ SVG, text, className }: ICounter) => {
   return (
-    <div className="flex space-x-1 justify-center items-center">
+    <div className={`flex space-x-1 justify-center items-center ${className}`}>
       {SVG}
       <span>{text}</span>
     </div>
@@ -10,6 +10,7 @@ const Counter = ({ SVG, text }: ICounter) => {
 interface ICounter {
   SVG: React.ReactNode;
   text: string;
+  className?: string;
 }
 
 export default Counter;
