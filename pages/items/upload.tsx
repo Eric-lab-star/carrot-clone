@@ -13,7 +13,10 @@ const Upload: NextPage = () => {
         <UploadField SVG={<PhotoSVG />} />
         <Input label="Name" placeholder="Please write your name" />
         <Input label="Price" placeholder="0.00" prefix="$" suffix="USD" />
-        <TextArea placeholder="Please introduce your items. Detail explanation has higher chance to be sold." />
+        <TextArea
+          label="Describtion"
+          placeholder="Please introduce your items. Detail explanation has higher chance to be sold."
+        />
         <Btn>Upload Product</Btn>
       </div>
     </Layout>

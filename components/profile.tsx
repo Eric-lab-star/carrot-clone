@@ -1,3 +1,4 @@
+import Link from "next/link";
 import RightArr from "./svg/right";
 
 export default function Profile({ username, edit, view }: IProfile) {
@@ -7,7 +8,13 @@ export default function Profile({ username, edit, view }: IProfile) {
       <div>
         <p className="font-medium">{username}</p>
         <div className="flex justify-center items-center cursor-pointer hover:text-amber-500 text-xs text-gray-500">
-          <div>{edit && "Edit Profile"}</div>
+          <div>
+            {edit && (
+              <Link href={"/profile/edit"}>
+                <a>Edit Profile</a>
+              </Link>
+            )}
+          </div>
           <div>{view && "View Profile"}</div>
           <RightArr />
         </div>

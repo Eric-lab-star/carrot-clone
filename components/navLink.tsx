@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { cls } from "../libs/utils";
-// eslint-disable-next-line react/display-name
-const NavLink = React.forwardRef<any, any>(function NavLink(
+const NavLink = React.forwardRef<HTMLAnchorElement, INavProps>(function NavLink(
   { onClick, href, SVG, text },
   ref
 ) {
@@ -10,15 +9,15 @@ const NavLink = React.forwardRef<any, any>(function NavLink(
   return (
     <a
       className={cls(
-        "flex flex-col items-center justify-center text-xs text-white",
-        router.pathname === `${href}` ? "text-amber-600" : ""
+        "flex flex-col items-center justify-center text-xs ",
+        router.pathname === href ? "text-amber-600" : "text-white"
       )}
       href={href}
       onClick={onClick}
       ref={ref}
     >
       {SVG}
-      <div>{text}</div>
+      <span>{text}</span>
     </a>
   );
 });
@@ -26,7 +25,7 @@ const NavLink = React.forwardRef<any, any>(function NavLink(
 interface INavProps {
   SVG: React.ReactNode;
   text?: string;
-  href: string;
+  href?: string;
   onClick?: any;
 }
 

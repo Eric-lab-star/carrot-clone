@@ -1,8 +1,8 @@
-export default function TextArea({ placeholder }: IPlaceholder) {
+export default function TextArea({ placeholder, label }: IPlaceholder) {
   return (
     <div className="mt-2">
       <label className="text-sm font-medium cursor-pointer" htmlFor="desc">
-        Description
+        {label}
       </label>
 
       <textarea
@@ -17,4 +17,5 @@ export default function TextArea({ placeholder }: IPlaceholder) {
 
 interface IPlaceholder {
   placeholder: string;
+  label: string;
 }

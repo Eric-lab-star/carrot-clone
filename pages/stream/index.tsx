@@ -3,7 +3,6 @@ import Link from "next/link";
 import FloatingBtn from "../../components/floatingBtn";
 import Layout from "../../components/layout";
 import SmProfile from "../../components/smProfile";
-
 import VideoSVG from "../../components/svg/video";
 
 const Stream: NextPage = () => {

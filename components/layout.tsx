@@ -20,7 +20,9 @@ export default function Layout({
   return (
     <div className="">
       <Header title={title} canGoBack={canGoBack} router={router} />
-      <div className={cls("py-10", hasTabBar ? "pb-17" : "")}>{children}</div>
+      <div className={cls("pt-10 relative", hasTabBar ? "pb-16" : "")}>
+        {children}
+      </div>
       {hasTabBar ? (
         <nav className="fixed bottom-0 bg-amber-400 flex justify-center items-center w-full space-x-10 py-1">
           <Link href="/" passHref>
@@ -48,7 +50,7 @@ const Header = ({ canGoBack, router, title }: ITitleProps) => {
   return (
     <div
       className={cls(
-        "w-full bg-amber-500 text-white flex fixed px-4 py-2 font-semibold text-lg shadow-lg",
+        "w-full bg-amber-500 text-white flex fixed z-10 px-4 py-2 font-semibold text-lg shadow-lg",
         canGoBack ? "justify-start" : "justify-center"
       )}
     >

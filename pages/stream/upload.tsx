@@ -10,7 +10,10 @@ export default function UploadStream() {
       <div className="py-6 px-6">
         <UploadField SVG={<VideoSVG />} />
         <Input label="Title" placeholder="Title" />
-        <TextArea placeholder="Please describe about your video." />
+        <TextArea
+          label="Summary"
+          placeholder="Please describe about your video."
+        />
         <Btn>Go Live</Btn>
       </div>
     </Layout>
