@@ -10,8 +10,8 @@ import SmProfile from "../../components/smProfile";
 const StreamDetail: NextPage = () => {
   return (
     <Layout title="Video" canGoBack>
-      <div className="py-2 h-screen px-4 md:flex md:space-x-4">
-        <div className="space-y-3 pt-3 pb-2 flex-1">
+      <div className=" md:flex md:space-x-4 bg-red-300">
+        <div className="space-y-3 px-4 py-4 bg-green-300 drop-shadow-md">
           <div className="w-full aspect-video bg-slate-300 shadow-md rounded-sm" />
 
           <SmProfile name="Let's try something new" time="1hour" />
@@ -21,17 +21,18 @@ const StreamDetail: NextPage = () => {
             desc="My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. "
           />
         </div>
-        <div className="md:w-60 lg:w-72 ">
-          <H2 text="Live Chat" />
-          <div className="py-2 h-[100vh] overflow-y-auto  shadow-inner">
-            {[1, 1, 1, 1, 1, 1, 1].map((v, i) => {
-              return (
-                <div key={i}>
-                  <Received text="helloo" />
-                  <Send text="money's bullshit about it ain't there" />
-                </div>
-              );
-            })}
+        <div className=" md:w-60 lg:w-72 absolute inset-0 -top-16 mt-3  -z-30  ">
+          <div className="flex flex-col-reverse h-screen overflow-y-auto  shadow-inner  bg-slate-400 ">
+            <div className=" ">
+              {[1, 1, 1, 1].map((v, i) => {
+                return (
+                  <div key={i}>
+                    <Received text="helloo" />
+                    <Send text="money's bullshit about it ain't there" />
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <MessageInput />
         </div>
