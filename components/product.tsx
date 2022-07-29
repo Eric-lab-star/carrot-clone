@@ -4,7 +4,7 @@ export default function Product({ title, price, desc }: IProduct) {
   return (
     <div>
       <H2 text={title} />
-      <p className="font-semibold text-lg">${price}</p>
+      <div className="font-semibold text-lg">${price}</div>
       <p className="text-base font-thin selection:bg-amber-300 selection:text-white">
         {desc}
       </p>
