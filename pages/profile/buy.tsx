@@ -1,10 +1,10 @@
+import Counter from "@components/counter";
+import ItemProfile from "@components/itemProfile";
+import Layout from "@components/layout";
+import CommentSVG from "@components/svg/comment";
+import HeartSVG from "@components/svg/heart";
 import type { NextPage } from "next";
 import Link from "next/link";
-import Counter from "../../components/counter";
-import ItemProfile from "../../components/itemProfile";
-import Layout from "../../components/layout";
-import CommentSVG from "../../components/svg/comment";
-import HeartSVG from "../../components/svg/heart";
 
 const Buy: NextPage = () => {
   return (

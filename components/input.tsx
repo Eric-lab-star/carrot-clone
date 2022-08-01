@@ -1,8 +1,13 @@
+import { UseFormRegisterReturn } from "react-hook-form";
+
 export default function Input({
   label,
   prefix,
   placeholder,
   suffix,
+  register,
+  type = "text",
+  required,
 }: IInputProps) {
   return (
     <div>
@@ -14,8 +19,10 @@ export default function Input({
           <span>{prefix} </span>
         </div>
         <input
+          {...register}
           id="name"
-          type="text"
+          type={type}
+          required={required}
           placeholder={placeholder}
           className="py-1 px-1 flex-1 placeholder:text-amber-500  bg-amber-400 focus:outline-none focus:border-transparent border-transparent focus:ring-transparent"
         />
@@ -32,4 +39,7 @@ interface IInputProps {
   prefix?: string;
   placeholder: string;
   suffix?: string;
+  type?: string;
+  required?: boolean;
+  register?: UseFormRegisterReturn;
 }

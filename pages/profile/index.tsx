@@ -1,13 +1,9 @@
+import H2 from "@components/h2";
+import Layout from "@components/layout";
+import Profile from "@components/profile";
+import SmProfile from "@components/smProfile";
 import type { NextPage } from "next";
 import Link from "next/link";
-import CircleBg from "../../components/circleBg";
-import H2 from "../../components/h2";
-import Layout from "../../components/layout";
-import Profile from "../../components/profile";
-import SmProfile from "../../components/smProfile";
-import CartSVG from "../../components/svg/cart";
-import HeartSVG from "../../components/svg/heart";
-import ShoppingBagSVG from "../../components/svg/shoppingBag";
 
 const ProfileHome: NextPage = () => {
   return (

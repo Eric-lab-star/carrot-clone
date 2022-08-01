@@ -1,9 +1,10 @@
-import Btn from "../../components/btn";
-import Input from "../../components/input";
-import Layout from "../../components/layout";
-import VideoSVG from "../../components/svg/video";
-import TextArea from "../../components/textArea";
-import UploadField from "../../components/uploadField";
+import Btn from "@components/btn";
+import Input from "@components/input";
+import Layout from "@components/layout";
+import VideoSVG from "@components/svg/video";
+import TextArea from "@components/textArea";
+import UploadField from "@components/uploadField";
+
 export default function UploadStream() {
   return (
     <Layout title="Upload" canGoBack>

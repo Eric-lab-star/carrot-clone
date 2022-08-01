@@ -1,10 +1,10 @@
+import Btn from "@components/btn";
+import Input from "@components/input";
+import Layout from "@components/layout";
+import PhotoSVG from "@components/svg/photo";
+import TextArea from "@components/textArea";
+import UploadField from "@components/uploadField";
 import type { NextPage } from "next";
-import Btn from "../../components/btn";
-import Input from "../../components/input";
-import Layout from "../../components/layout";
-import PhotoSVG from "../../components/svg/photo";
-import TextArea from "../../components/textArea";
-import UploadField from "../../components/uploadField";
 
 const Upload: NextPage = () => {
   return (

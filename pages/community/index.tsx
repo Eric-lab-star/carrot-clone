@@ -1,9 +1,9 @@
+import Question from "@components/communityQuestion";
+import FloatingBtn from "@components/floatingBtn";
+import Layout from "@components/layout";
+import Write from "@components/svg/write";
 import type { NextPage } from "next";
 import Link from "next/link";
-import Question from "../../components/communityQuestion";
-import FloatingBtn from "../../components/floatingBtn";
-import Layout from "../../components/layout";
-import Write from "../../components/svg/write";
 
 const Community: NextPage = () => {
   return (

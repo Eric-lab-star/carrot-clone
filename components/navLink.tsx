@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { cls } from "../libs/utils";
+import { cls } from "../libs/client/utils";
 const NavLink = React.forwardRef<HTMLAnchorElement, INavProps>(function NavLink(
   { onClick, href, SVG, text },
   ref

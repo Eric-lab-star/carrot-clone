@@ -1,12 +1,11 @@
+import Btn from "@components/btn";
+import H2 from "@components/h2";
+import Layout from "@components/layout";
+import Product from "@components/product";
+import Profile from "@components/profile";
+import SmProfile from "@components/smProfile";
+import HeartSVG from "@components/svg/heart";
 import type { NextPage } from "next";
-import Layout from "../../components/layout";
-import HeartSVG from "../../components/svg/heart";
-import Btn from "../../components/btn";
-import Profile from "../../components/profile";
-import Product from "../../components/product";
-import H2 from "../../components/h2";
-import Review from "../../components/review";
-import SmProfile from "../../components/smProfile";
 
 const ItemDetail: NextPage = () => {
   return (

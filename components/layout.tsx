@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cls } from "../libs/utils";
+import { cls } from "../libs/client/utils";
 import { NextRouter, useRouter } from "next/router";
 import VideoSVG from "./svg/video";
 import UserSVG from "./svg/user";

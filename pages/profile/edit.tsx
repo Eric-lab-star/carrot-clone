@@ -1,9 +1,9 @@
+import Btn from "@components/btn";
+import Input from "@components/input";
+import Layout from "@components/layout";
 import type { NextPage } from "next";
-import Btn from "../../components/btn";
-import Input from "../../components/input";
-import Layout from "../../components/layout";
 
-const Edit = () => {
+const Edit: NextPage = () => {
   return (
     <Layout title="Edit" canGoBack>
       <div className="py-16 px-4 max-w-md m-auto">

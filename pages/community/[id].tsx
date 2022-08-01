@@ -1,13 +1,10 @@
+import Btn from "@components/btn";
+import Question from "@components/communityQuestion";
+import Layout from "@components/layout";
+import Profile from "@components/profile";
+import SmProfile from "@components/smProfile";
+import TextArea from "@components/textArea";
 import type { NextPage } from "next";
-import Btn from "../../components/btn";
-import Question from "../../components/communityQuestion";
-import Counter from "../../components/counter";
-import Layout from "../../components/layout";
-import Profile from "../../components/profile";
-import SmProfile from "../../components/smProfile";
-import CheckSVG from "../../components/svg/check";
-import CommentSVG from "../../components/svg/comment";
-import TextArea from "../../components/textArea";
 
 const CommunityDetail: NextPage = () => {
   return (

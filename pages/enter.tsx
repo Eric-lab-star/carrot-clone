@@ -1,14 +1,39 @@
 import { useState } from "react";
 import type { NextPage } from "next";
-import { cls } from "../libs/utils";
+import { cls } from "../libs/client/utils";
 import TwitterSVG from "../components/svg/twitter";
 import GitHubSVG from "../components/svg/github";
 import Btn from "../components/btn";
+import Input from "../components/input";
+import { useForm } from "react-hook-form";
+import useMutation from "../libs/client/useMutation";
 
+interface IFormValue {
+  email?: string;
+  phone?: string;
+}
 const Enter: NextPage = () => {
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const [mutate, { data, error, loading }] = useMutation("/api/users/enter");
+  const onEmailClick = () => {
+    reset();
+    setMethod("email");
+  };
+  const onPhoneClick = () => {
+    reset();
+    setMethod("phone");
+  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IFormValue>({
+    mode: "onChange",
+  });
+  const onValid = (data: IFormValue) => {
+    mutate(data);
+  };
   return (
     <div className={`py-5 px-6 min-h-screen text-amber-400`}>
       <h3 className="text-2xl text-center font-semibold">Enter to Carrot</h3>
@@ -40,37 +65,55 @@ const Enter: NextPage = () => {
             </button>
           </div>
         </div>
-        <form className="mt-1 space-y-2 flex flex-col">
-          <label className="">
-            {method === "email" ? "Email address" : null}
-            {method === "phone" ? "Phone number" : null}
-          </label>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="mt-1 space-y-2 flex flex-col"
+        >
           <div>
             {method === "email" ? (
-              <input
-                className="text-black placeholder:text-gray-300 py-1 w-full border rounded-md border-amber-700 shadow-md focus:border-amber-500 focus:ring-amber-500"
-                type="email"
-                placeholder="your@email.com"
-                required
-              />
+              <>
+                <Input
+                  register={register("email", {
+                    required: "email is required",
+                    pattern: {
+                      value: /([\w\d]+)@([\w\d]+).com/,
+                      message: "please write valid email format",
+                    },
+                  })}
+                  label="Email Addrees"
+                  placeholder="your@email.com"
+                  type="email"
+                />
+                <span>{errors.email?.message}</span>
+              </>
             ) : null}
             {method === "phone" ? (
-              <div className="flex shadow-sm rounded-md ">
-                <span className="flex justify-center items-center px-1 border rounded-l-md  select-none bg-gray-50 text-gray-400 border-gray-400 border-r-transparent">
-                  +82
-                </span>
-                <input
-                  className="w-full focus:outline-none focus:ring-amber-500 focus:border-amber-500 rounded-r-md py-1 text-black placeholder:text-gray-300"
-                  type="number"
-                  required
-                  placeholder="10-4940-1111"
+              <>
+                <Input
+                  register={register("phone", {
+                    required: "phone number is required",
+                    pattern: {
+                      value: /\d+/,
+                      message: "please type numbers",
+                    },
+                    validate: (v) => !v?.includes("-") || "Don't write dash(-)",
+                  })}
+                  label="Phone Number"
+                  placeholder="010-xxxx-xxxx"
                 />
-              </div>
+                <span>{errors.phone?.message}</span>
+              </>
             ) : null}
           </div>
           <Btn>
-            {method === "email" ? "Get login link" : null}
-            {method === "phone" ? "Get one-time password" : null}
+            {loading ? (
+              "Please wait..."
+            ) : (
+              <>
+                {method === "email" ? "Get login link" : null}
+                {method === "phone" ? "Get one-time password" : null}
+              </>
+            )}
           </Btn>
         </form>
         <div className="mt-4">

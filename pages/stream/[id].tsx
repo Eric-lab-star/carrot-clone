@@ -1,11 +1,10 @@
+import Layout from "@components/layout";
+import MessageInput from "@components/message";
+import Product from "@components/product";
+import Received from "@components/received";
+import Send from "@components/send";
+import SmProfile from "@components/smProfile";
 import type { NextPage } from "next";
-import H2 from "../../components/h2";
-import Layout from "../../components/layout";
-import MessageInput from "../../components/message";
-import Product from "../../components/product";
-import Received from "../../components/received";
-import Send from "../../components/send";
-import SmProfile from "../../components/smProfile";
 
 const StreamDetail: NextPage = () => {
   return (
