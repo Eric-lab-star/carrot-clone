@@ -1,4 +1,5 @@
-import { cls } from "../../libs/client/utils";
+import { cls } from "libs/client/utils";
+
 export default function StarSVG({ color }: IStar) {
   return (
     <svg
