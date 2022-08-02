@@ -1,6 +1,10 @@
-import { read } from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
+
+export interface IResponse {
+  ok: boolean;
+  [key: string]: any;
+}
 
 export default function withHandler(
   method: "GET" | "POST" | "DELETE",
