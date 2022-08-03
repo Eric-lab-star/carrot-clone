@@ -7,7 +7,6 @@ import Btn from "../components/btn";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
 import useMutation from "../libs/client/useMutation";
-
 interface IFormValue {
   email?: string;
   phone?: string;

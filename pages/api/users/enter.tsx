@@ -2,6 +2,9 @@ import prismaClient from "libs/server/prismaclient";
 import withHandler, { IResponse } from "libs/server/withHandler";
 import twilio from "twilio";
 import { NextApiRequest, NextApiResponse } from "next";
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
@@ -34,9 +37,16 @@ async function enter(req: NextApiRequest, res: NextApiResponse<IResponse>) {
       to: process.env.MYPHONE!,
       body: `Your login token is ${payload}.`,
     });
-    console.log(msg);
+  } else if (email) {
+    const email = await sgMail.send({
+      to: "cyon256@icloud.com",
+      from: "cyon256@icloud.com",
+      subject: "sending with send grid is fun",
+      text: `Your verification number is <strong>${payload}</strong>`,
+      html: `Your verification number is <strong>${payload}</strong>`,
+    });
+    console.log(email);
   }
-  console.log(token);
   return res.json({ ok: true });
 }
 
