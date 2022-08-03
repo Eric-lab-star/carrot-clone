@@ -32,20 +32,19 @@ async function enter(req: NextApiRequest, res: NextApiResponse<IResponse>) {
     },
   });
   if (phone) {
-    const msg = await twilioClient.messages.create({
-      messagingServiceSid: process.env.MSG_SID,
-      to: process.env.MYPHONE!,
-      body: `Your login token is ${payload}.`,
-    });
+    // const msg = await twilioClient.messages.create({
+    //   messagingServiceSid: process.env.MSG_SID,
+    //   to: process.env.MYPHONE!,
+    //   body: `Your login token is ${payload}.`,
+    // });
   } else if (email) {
-    const email = await sgMail.send({
-      to: "cyon256@icloud.com",
-      from: "cyon256@icloud.com",
-      subject: "sending with send grid is fun",
-      text: `Your verification number is <strong>${payload}</strong>`,
-      html: `Your verification number is <strong>${payload}</strong>`,
-    });
-    console.log(email);
+    // const email = await sgMail.send({
+    //   to: "cyon256@icloud.com",
+    //   from: "cyon256@icloud.com",
+    //   subject: "Please verify your code",
+    //   text: `Your verification number is <strong>${payload}</strong>`,
+    //   html: `Your verification number is <strong>${payload}</strong>`,
+    // });
   }
   return res.json({ ok: true });
 }
