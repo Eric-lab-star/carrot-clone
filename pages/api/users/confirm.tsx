@@ -3,18 +3,30 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { withIronSessionApiRoute } from "iron-session/next";
 import prismaclient from "libs/server/prismaclient";
 
+declare module "iron-session" {
+  interface IronSessionData {
+    user?: {
+      id: number;
+    };
+  }
+}
+
 async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.session);
   const {
     body: { token },
   } = req;
-  const dbToken = await prismaclient.token.findUnique({
+  const exists = await prismaclient.token.findUnique({
     where: {
       payload: token,
     },
   });
-  console.log(dbToken);
-  console.log(token);
+  if (!exists) {
+    return res.status(404).end();
+  }
+  req.session.user = {
+    id: exists.userId,
+  };
+  await req.session.save();
   return res.status(200).end();
 }
 
