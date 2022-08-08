@@ -4,7 +4,6 @@ import withHandler from "libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function me(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.session.user);
   const profile = await prismaclient.user.findUnique({
     where: { id: req.session.user?.id },
   });
