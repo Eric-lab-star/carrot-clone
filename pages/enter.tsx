@@ -33,7 +33,7 @@ const Enter: NextPage = () => {
     reset();
     setMethod("phone");
   };
-
+  console.log(tokenData);
   const {
     register,
     handleSubmit,
@@ -82,7 +82,11 @@ const Enter: NextPage = () => {
               <span>{tokenFormError.token?.message}</span>
             </div>
             <Btn>
-              {tokenLoading ? "Please wait..." : "Please verify your code"}
+              {tokenLoading
+                ? "Please wait..."
+                : tokenData?.ok
+                ? "Confirmed!"
+                : "Please verify your code"}
             </Btn>
           </form>
         ) : (
