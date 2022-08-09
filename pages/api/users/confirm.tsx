@@ -15,7 +15,6 @@ async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
   if (!exists) {
     return res.status(404).end();
   }
-  console.log(exists);
   req.session.user = {
     id: exists.userId,
   };
@@ -30,4 +29,6 @@ async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
-export default withApiSession(withHandler("POST", tokenHandler));
+export default withApiSession(
+  withHandler({ method: "POST", handler: tokenHandler, isPrivate: false })
+);

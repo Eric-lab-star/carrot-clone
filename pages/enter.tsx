@@ -34,7 +34,7 @@ const Enter: NextPage = () => {
     reset();
     setMethod("phone");
   };
-  console.log(tokenData);
+
   const {
     register,
     handleSubmit,

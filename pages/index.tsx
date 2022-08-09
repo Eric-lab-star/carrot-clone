@@ -1,3 +1,4 @@
+import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
 import Link from "next/link";
 import Counter from "../components/counter";
@@ -9,6 +10,8 @@ import HeartSVG from "../components/svg/heart";
 import PlusSVG from "../components/svg/plus";
 
 const Home: NextPage = () => {
+  const [user, setUser] = useUser();
+  console.log(user);
   return (
     <Layout title="Home" hasTabBar>
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2">

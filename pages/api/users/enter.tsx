@@ -50,4 +50,8 @@ async function enter(req: NextApiRequest, res: NextApiResponse<IResponse>) {
   return res.json({ ok: true });
 }
 
-export default withHandler("POST", enter);
+export default withHandler({
+  method: "POST",
+  handler: enter,
+  isPrivate: false,
+});
