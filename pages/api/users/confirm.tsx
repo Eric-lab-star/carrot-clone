@@ -1,15 +1,7 @@
 import withHandler from "libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
-import { withIronSessionApiRoute } from "iron-session/next";
 import prismaclient from "libs/server/prismaclient";
-
-declare module "iron-session" {
-  interface IronSessionData {
-    user?: {
-      id: number;
-    };
-  }
-}
+import { withApiSession } from "libs/server/withSession";
 
 async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
   const {
@@ -28,12 +20,14 @@ async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
     id: exists.userId,
   };
   await req.session.save();
+  await prismaclient.token.deleteMany({
+    where: {
+      userId: exists.userId,
+    },
+  });
   return res.json({
     ok: true,
   });
 }
 
-export default withIronSessionApiRoute(withHandler("POST", tokenHandler), {
-  cookieName: "carrotsession",
-  password: process.env.SESSION_PASSWORD!,
-});
+export default withApiSession(withHandler("POST", tokenHandler));

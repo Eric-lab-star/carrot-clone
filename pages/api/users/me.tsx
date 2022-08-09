@@ -1,6 +1,6 @@
-import { withIronSessionApiRoute } from "iron-session/next";
 import prismaclient from "libs/server/prismaclient";
 import withHandler from "libs/server/withHandler";
+import { withApiSession } from "libs/server/withSession";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function me(req: NextApiRequest, res: NextApiResponse) {
@@ -14,7 +14,4 @@ async function me(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
-export default withIronSessionApiRoute(withHandler("GET", me), {
-  cookieName: "carrotsession",
-  password: process.env.SESSION_PASSWORD!,
-});
+export default withApiSession(withHandler("GET", me));

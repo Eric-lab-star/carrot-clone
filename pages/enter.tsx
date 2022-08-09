@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { cls } from "../libs/client/utils";
 import TwitterSVG from "../components/svg/twitter";
@@ -7,6 +7,7 @@ import Btn from "../components/btn";
 import Input from "../components/input";
 import { useForm } from "react-hook-form";
 import useMutation from "../libs/client/useMutation";
+import Router, { useRouter } from "next/router";
 interface IFormValue {
   email?: string;
   phone?: string;
@@ -53,10 +54,16 @@ const Enter: NextPage = () => {
     if (loading) return;
     mutate(validForm);
   };
-  const onValidToken = (validForm: IToken) => {
+  const onValidToken = (validToken: IToken) => {
     if (tokenLoading) return;
-    confirmToken(validForm);
+    confirmToken(validToken);
   };
+  const router = useRouter();
+  useEffect(() => {
+    if (tokenData?.ok) {
+      router.push("/");
+    }
+  }, [tokenData, router]);
   return (
     <div className={`py-5 px-6 min-h-screen text-amber-400`}>
       <h3 className="text-2xl text-center font-semibold">Enter to Carrot</h3>
