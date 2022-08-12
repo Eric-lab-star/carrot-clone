@@ -1,17 +1,14 @@
 import prismaclient from "libs/server/prismaclient";
-import withHandler from "libs/server/withHandler";
+import withHandler, { IResponse } from "libs/server/withHandler";
 import { withApiSession } from "libs/server/withSession";
 import { NextApiRequest, NextApiResponse } from "next";
 
-async function me(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
   const profile = await prismaclient.user.findUnique({
     where: { id: req.session.user?.id },
   });
-
-  res.json({
-    ok: true,
-    profile,
-  });
+  res.status(200).json({ ok: true, profile });
+  return;
 }
 
-export default withApiSession(withHandler({ method: "GET", handler: me }));
+export default withApiSession(withHandler({ method: "GET", handler }));

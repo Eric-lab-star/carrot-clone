@@ -12,7 +12,6 @@ import PlusSVG from "../components/svg/plus";
 
 const Home: NextPage = () => {
   const { user, isLoading } = useUser();
-  console.log(user);
   return (
     <Layout title="Home" hasTabBar>
       <Head>

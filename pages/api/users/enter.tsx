@@ -31,7 +31,6 @@ async function enter(req: NextApiRequest, res: NextApiResponse<IResponse>) {
       },
     },
   });
-  console.log(token);
   if (phone) {
     // const msg = await twilioClient.messages.create({
     //   messagingServiceSid: process.env.MSG_SID,
