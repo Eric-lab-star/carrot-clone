@@ -6,8 +6,10 @@ export interface IResponse {
   [key: string]: any;
 }
 
+type method = "GET" | "POST" | "DELETE";
+
 interface IConfig {
-  method: "GET" | "POST" | "DELETE";
+  methods: method[];
   isPrivate?: boolean;
   handler: (req: NextApiRequest, res: NextApiResponse) => void;
 }
@@ -15,13 +17,13 @@ interface IConfig {
 export default function withHandler({
   isPrivate = true,
   handler,
-  method,
+  methods,
 }: IConfig) {
   return async function (
     req: NextApiRequest,
     res: NextApiResponse
   ): Promise<any> {
-    if (req.method !== method) {
+    if (req.method && !methods.includes(req.method as any)) {
       console.log("no method");
       res.status(405).end();
     }

@@ -50,7 +50,7 @@ async function enter(req: NextApiRequest, res: NextApiResponse<IResponse>) {
 }
 
 export default withHandler({
-  method: "POST",
+  methods: ["POST"],
   handler: enter,
   isPrivate: false,
 });

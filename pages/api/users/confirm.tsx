@@ -30,5 +30,5 @@ async function tokenHandler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default withApiSession(
-  withHandler({ method: "POST", handler: tokenHandler, isPrivate: false })
+  withHandler({ methods: ["POST"], handler: tokenHandler, isPrivate: false })
 );
