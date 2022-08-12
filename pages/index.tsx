@@ -1,5 +1,6 @@
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import Counter from "../components/counter";
 import FloatingBtn from "../components/floatingBtn";
@@ -10,10 +11,13 @@ import HeartSVG from "../components/svg/heart";
 import PlusSVG from "../components/svg/plus";
 
 const Home: NextPage = () => {
-  const [user, setUser] = useUser();
+  const { user, isLoading } = useUser();
   console.log(user);
   return (
     <Layout title="Home" hasTabBar>
+      <Head>
+        <title>Home</title>
+      </Head>
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2">
         {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
           <Link key={i} href={`/items/${i}`}>
