@@ -6,8 +6,15 @@ import Profile from "@components/profile";
 import SmProfile from "@components/smProfile";
 import HeartSVG from "@components/svg/heart";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const ItemDetail: NextPage = () => {
+  const {
+    query: { id },
+  } = useRouter();
+  const { data } = useSWR(id ? `/api/products/${id}` : null);
+  console.log(data);
   return (
     <Layout title="Item Detail" canGoBack>
       <div className="px-5 py-5 space-y-3">
