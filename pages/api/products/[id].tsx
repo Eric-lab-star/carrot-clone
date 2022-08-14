@@ -11,6 +11,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       where: {
         id: +id?.toString()!,
       },
+      include: {
+        user: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
     });
     return res.json({ ok: true, product });
   } catch (error) {
