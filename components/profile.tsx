@@ -1,7 +1,7 @@
 import Link from "next/link";
 import RightArr from "./svg/right";
 
-export default function Profile({ username, edit, view }: IProfile) {
+export default function Profile({ username, edit, view, userId }: IProfile) {
   return (
     <div className="flex space-x-3">
       <div className={`h-12 aspect-square rounded-full bg-gray-200`} />
@@ -15,7 +15,13 @@ export default function Profile({ username, edit, view }: IProfile) {
               </Link>
             )}
           </div>
-          <div>{view && "View Profile"}</div>
+          <div>
+            {view && (
+              <Link href={`/users/profile/${userId}`}>
+                <a>View Profile</a>
+              </Link>
+            )}
+          </div>
           <RightArr />
         </div>
       </div>
@@ -27,4 +33,5 @@ interface IProfile {
   username: string;
   edit?: boolean;
   view?: boolean;
+  userId?: number;
 }

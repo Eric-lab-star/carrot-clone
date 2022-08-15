@@ -11,7 +11,7 @@ type method = "GET" | "POST" | "DELETE";
 interface IConfig {
   methods: method[];
   isPrivate?: boolean;
-  handler: (req: NextApiRequest, res: NextApiResponse) => void;
+  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<any>;
 }
 
 export default function withHandler({
@@ -25,16 +25,16 @@ export default function withHandler({
   ): Promise<any> {
     if (req.method && !methods.includes(req.method as any)) {
       console.log("no method");
-      res.status(405).end();
+      return res.status(405).end();
     }
     if (isPrivate && !req.session.user) {
-      res.status(401).json({ ok: false, error: "please log in" });
+      return res.status(401).json({ ok: false, error: "please log in" });
     }
     try {
-      handler(req, res);
+      await handler(req, res);
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error });
+      console.log("error from withHandler", error);
+      return res.status(500).json({ error });
     }
   };
 }

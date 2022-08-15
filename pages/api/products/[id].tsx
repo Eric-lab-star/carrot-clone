@@ -2,6 +2,7 @@ import withHandler from "libs/server/withHandler";
 import { withApiSession } from "libs/server/withSession";
 import { NextApiRequest, NextApiResponse } from "next";
 import client from "libs/server/prismaclient";
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
@@ -16,11 +17,28 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           select: {
             name: true,
             id: true,
+            avatar: true,
           },
         },
       },
     });
-    return res.json({ ok: true, product });
+    const terms = product?.name.split(" ").map((word) => ({
+      name: {
+        contains: word,
+      },
+    }));
+    const relatedProducts = await client?.product.findMany({
+      where: {
+        OR: terms,
+        AND: {
+          id: {
+            not: product?.id,
+          },
+        },
+      },
+    });
+
+    return res.status(200).json({ ok: true, product, relatedProducts });
   } catch (error) {
     return res.status(404).json({ ok: false });
   }
