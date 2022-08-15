@@ -8,6 +8,7 @@ import HeartSVG from "@components/svg/heart";
 import { Product } from "@prisma/client";
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -66,17 +67,19 @@ const ItemDetail: NextPage = () => {
             <H2 text="Similar Items" />
             <div className="mt-3 grid grid-cols-2 gap-4 md:grid-cols-4 sm:grid-cols-3">
               {data.relatedProducts.map((relatedProduct) => (
-                <div key={relatedProduct.id}>
-                  <div className="w-full h-40 bg-gray-400 rounded-md mb-2" />
-                  <div className="flex items-center justify-between space-x-2 ">
-                    <h3 className="font-medium text-gray-800">
-                      {relatedProduct.name}
-                    </h3>
-                    <p className="text-sm rounded-md select-none bg-amber-400 p-1 text-white">
-                      {relatedProduct.price}
-                    </p>
+                <Link href={relatedProduct.id + ""} key={relatedProduct.id}>
+                  <div>
+                    <div className="w-full h-40 bg-gray-400 rounded-md mb-2" />
+                    <div className="flex items-center justify-between space-x-2 ">
+                      <h3 className="font-medium text-gray-800">
+                        {relatedProduct.name}
+                      </h3>
+                      <p className="text-sm rounded-md select-none bg-amber-400 p-1 text-white">
+                        {relatedProduct.price}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
