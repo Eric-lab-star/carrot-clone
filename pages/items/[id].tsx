@@ -14,6 +14,7 @@ import useSWR from "swr";
 import useMutation from "libs/client/useMutation";
 import { cls } from "libs/client/utils";
 import SolidHeart from "@components/svg/solidHeart";
+import fav from "pages/api/products/[id]/fav";
 
 interface IData {
   ok: boolean;
@@ -34,11 +35,13 @@ const ItemDetail: NextPage = () => {
   const {
     query: { id },
   } = useRouter();
-  const { data } = useSWR<IData>(id ? `/api/products/${id}` : null);
+  const { data, mutate } = useSWR<IData>(id ? `/api/products/${id}` : null);
   const [setMutaion] = useMutation(`/api/products/${id}/fav`);
+
   const onFavClick = () => {
     setMutaion({});
-    console.log("click");
+    if (!data) return;
+    mutate({ ...data, isLiked: !data?.isLiked }, false);
   };
   return (
     <Layout title="Item Detail" canGoBack>

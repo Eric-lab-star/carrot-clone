@@ -14,7 +14,13 @@ import PlusSVG from "../components/svg/plus";
 
 interface IData {
   ok: boolean;
-  products: Product[];
+  products: ILikesNProduct[];
+}
+
+interface ILikesNProduct extends Product {
+  _count: {
+    fav: number;
+  };
 }
 
 const Home: NextPage = () => {
@@ -35,7 +41,10 @@ const Home: NextPage = () => {
                 date={(product.updatedAt + "").slice(0, 10)}
               />
               <div className="flex items-end jutify-end space-x-2">
-                <Counter SVG={<HeartSVG w="4" h="4" />} text="1" />
+                <Counter
+                  SVG={<HeartSVG w="4" h="4" />}
+                  text={product._count.fav + ""}
+                />
                 <Counter SVG={<CommentSVG w="4" h="4" />} text="1" />
               </div>
             </div>

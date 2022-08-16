@@ -4,7 +4,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import client from "libs/server/prismaclient";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const products = await client?.product.findMany({});
+    const products = await client?.product.findMany({
+      include: {
+        _count: {
+          select: {
+            fav: true,
+          },
+        },
+      },
+    });
     return res.json({ ok: true, products });
   }
   if (req.method === "POST") {
