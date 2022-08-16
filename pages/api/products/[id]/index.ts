@@ -6,6 +6,7 @@ import client from "libs/server/prismaclient";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
+    session: { user },
   } = req;
   try {
     const product = await client?.product.findUnique({
@@ -37,8 +38,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         },
       },
     });
-
-    return res.status(200).json({ ok: true, product, relatedProducts });
+    const isLiked = Boolean(
+      await client?.fav.findFirst({
+        where: {
+          userId: user?.id,
+          productId: product?.id,
+        },
+        select: {
+          id: true,
+        },
+      })
+    );
+    return res
+      .status(200)
+      .json({ ok: true, product, relatedProducts, isLiked });
   } catch (error) {
     return res.status(404).json({ ok: false });
   }

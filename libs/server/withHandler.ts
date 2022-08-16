@@ -24,7 +24,7 @@ export default function withHandler({
     res: NextApiResponse
   ): Promise<any> {
     if (req.method && !methods.includes(req.method as any)) {
-      console.log("no method");
+      console.log("withHanlder.ts err msg: no method");
       return res.status(405).end();
     }
     if (isPrivate && !req.session.user) {

@@ -11,11 +11,15 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import useMutation from "libs/client/useMutation";
+import { cls } from "libs/client/utils";
+import SolidHeart from "@components/svg/solidHeart";
 
 interface IData {
   ok: boolean;
   product: IProduct;
   relatedProducts: Product[];
+  isLiked: boolean;
 }
 
 interface IProduct extends Product {
@@ -31,7 +35,11 @@ const ItemDetail: NextPage = () => {
     query: { id },
   } = useRouter();
   const { data } = useSWR<IData>(id ? `/api/products/${id}` : null);
-
+  const [setMutaion] = useMutation(`/api/products/${id}/fav`);
+  const onFavClick = () => {
+    setMutaion({});
+    console.log("click");
+  };
   return (
     <Layout title="Item Detail" canGoBack>
       {data ? (
@@ -51,8 +59,18 @@ const ItemDetail: NextPage = () => {
             />
             <div className="mt-3 flex space-x-2 ">
               <Btn>Talk to Seller</Btn>
-              <button className="flex justify-center items-center text-gray-500 hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:rounded-sm">
-                <HeartSVG w="6" h="6" />
+              <button
+                onClick={onFavClick}
+                className={cls(
+                  `flex justify-center items-center  hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:rounded-sm`,
+                  data.isLiked ? "text-amber-400" : "text-gray-500"
+                )}
+              >
+                {data.isLiked ? (
+                  <SolidHeart w="6" h="6" />
+                ) : (
+                  <HeartSVG w="6" h="6" />
+                )}
               </button>
             </div>
           </div>
