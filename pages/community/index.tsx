@@ -3,6 +3,7 @@ import FloatingBtn from "@components/floatingBtn";
 import Layout from "@components/layout";
 import Write from "@components/svg/write";
 import { Post } from "@prisma/client";
+import useCoords from "libs/client/useCoords";
 import type { NextPage } from "next";
 import Link from "next/link";
 import useSWR from "swr";
@@ -23,8 +24,10 @@ interface IPostWithUserandCount extends Post {
 }
 
 const Community: NextPage = () => {
-  const { data } = useSWR<IData>("/api/posts");
-
+  const { lat, long } = useCoords();
+  const { data } = useSWR<IData>(
+    lat && long ? `/api/posts?lat=${lat}&long=${long}` : null
+  );
   return (
     <Layout title="Community" hasTabBar>
       <div className="py-4 px-4 ">

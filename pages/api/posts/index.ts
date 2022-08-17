@@ -8,7 +8,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     session: { user },
     method,
   } = req;
-
   if (method === "POST") {
     const post = await client?.post.create({
       data: {
@@ -29,6 +28,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
   }
   if (method === "GET") {
+    const {
+      query: { lat, long },
+    } = req;
+    const parsedLat = parseFloat(lat!.toString());
+    const parsedLong = parseFloat(long!.toString());
+    console.log(lat, long);
     const post = await client?.post.findMany({
       include: {
         user: {
@@ -36,11 +41,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             name: true,
           },
         },
+
         _count: {
           select: {
             Wondering: true,
             Answer: true,
           },
+        },
+      },
+      where: {
+        lat: {
+          gte: parsedLat - 0.01,
+          lte: parsedLat + 0.01,
+        },
+        long: {
+          gte: parsedLong - 0.01,
+          lte: parsedLong + 0.01,
         },
       },
     });

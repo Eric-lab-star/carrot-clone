@@ -20,8 +20,8 @@ interface IWriteRes {
 
 const Write: NextPage = () => {
   const { register, handleSubmit } = useForm<IQuestion>();
-  const [post, { loading, data }] = useMutation<IWriteRes>("/api/posts");
   const { lat, long } = useCoords();
+  const [post, { loading, data }] = useMutation<IWriteRes>(`/api/posts`);
 
   const onValid = (data: IQuestion) => {
     if (loading) return;
