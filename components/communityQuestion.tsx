@@ -9,6 +9,8 @@ export default function Question({
   comment,
   time,
   name,
+  onWonderClick,
+  isWondering,
 }: IQuestionProp) {
   return (
     <div className="pt-2 hover:cursor-pointer">
@@ -24,6 +26,8 @@ export default function Question({
       </div>
       <div className="py-1 flex space-x-2">
         <Counter
+          isWondering={isWondering}
+          onClick={onWonderClick}
           className="text-sm"
           SVG={<CheckSVG />}
           text={`궁금해요 ${check}`}
@@ -45,4 +49,6 @@ interface IQuestionProp {
   time: string;
   check: number;
   comment: number;
+  onWonderClick: () => void;
+  isWondering?: boolean;
 }
