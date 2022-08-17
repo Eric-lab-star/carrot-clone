@@ -69,6 +69,8 @@ model Post {
   userId    Int
   Answer    Answer[]
   Wondering Wondering[]
+  lat       Float?
+  long      Float?
 }
 
 model Answer {

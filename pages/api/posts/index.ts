@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
-    body: { question },
+    body: { question, lat, long },
     session: { user },
     method,
   } = req;
@@ -18,6 +18,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             id: user?.id,
           },
         },
+        lat,
+        long,
       },
     });
 

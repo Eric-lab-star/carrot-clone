@@ -2,6 +2,7 @@ import Btn from "@components/btn";
 import Layout from "@components/layout";
 import TextArea from "@components/textArea";
 import { Post } from "@prisma/client";
+import useCoords from "libs/client/useCoords";
 import useMutation from "libs/client/useMutation";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -20,9 +21,11 @@ interface IWriteRes {
 const Write: NextPage = () => {
   const { register, handleSubmit } = useForm<IQuestion>();
   const [post, { loading, data }] = useMutation<IWriteRes>("/api/posts");
+  const { lat, long } = useCoords();
+
   const onValid = (data: IQuestion) => {
     if (loading) return;
-    post(data);
+    post({ ...data, lat, long });
   };
   const router = useRouter();
   useEffect(() => {
