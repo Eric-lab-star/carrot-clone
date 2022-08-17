@@ -21,6 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
       Answer: {
         select: {
+          createdAt: true,
           id: true,
           answer: true,
           user: {

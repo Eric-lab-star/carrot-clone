@@ -8,6 +8,7 @@ import { Answer, Post, User } from "@prisma/client";
 import useMutation from "libs/client/useMutation";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useSWR from "swr";
 
@@ -33,13 +34,20 @@ interface IForm {
   comment: string;
 }
 
+interface IAnswerData {
+  ok: boolean;
+  answer: Answer;
+}
+
 const CommunityDetail: NextPage = () => {
   const {
     query: { id },
   } = useRouter();
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, reset } = useForm<IForm>();
   const { data, error, mutate } = useSWR<IData>(id ? `/api/posts/${id}` : null);
-  const [wonder] = useMutation(`/api/posts/${id}/wonder`);
+  const [wonder, { loading }] = useMutation(`/api/posts/${id}/wonder`);
+  const [sendAnswer, { data: answerData, loading: answerLoading }] =
+    useMutation<IAnswerData>(`/api/posts/${id}/answers`);
   const onWonderClick = () => {
     if (!data) return;
     mutate(
@@ -58,8 +66,21 @@ const CommunityDetail: NextPage = () => {
       },
       false
     );
-    wonder({});
+    if (!loading) {
+      wonder({});
+    }
   };
+  const onValid = (form: IForm) => {
+    if (answerLoading) return;
+    sendAnswer(form);
+  };
+
+  useEffect(() => {
+    if (answerData && answerData.ok) {
+      reset();
+    }
+  }, [answerData, reset]);
+
   return (
     <Layout title="Community Detail" canGoBack>
       <div className="py-4 px-4">
@@ -99,15 +120,17 @@ const CommunityDetail: NextPage = () => {
             </div>
           );
         })}
-        <TextArea
-          register={register("comment", { required: true, minLength: 5 })}
-          required
-          placeholder="Please write reply"
-          label="comment"
-        />
-        <div className="px-4">
-          <Btn>Reply</Btn>
-        </div>
+        <form onSubmit={handleSubmit(onValid)}>
+          <TextArea
+            register={register("comment", { required: true, minLength: 5 })}
+            required
+            placeholder="Please write reply"
+            label="comment"
+          />
+          <div className="px-4">
+            <Btn>{answerLoading ? "Sending" : "Reply"}</Btn>
+          </div>
+        </form>
       </div>
     </Layout>
   );
