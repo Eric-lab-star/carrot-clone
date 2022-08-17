@@ -49,6 +49,6 @@ interface IQuestionProp {
   time: string;
   check: number;
   comment: number;
-  onWonderClick: () => void;
+  onWonderClick?: () => void;
   isWondering?: boolean;
 }
