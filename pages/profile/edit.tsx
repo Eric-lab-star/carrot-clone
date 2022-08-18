@@ -2,6 +2,7 @@ import Btn from "@components/btn";
 import Input from "@components/input";
 import Layout from "@components/layout";
 import { User } from "@prisma/client";
+import useMutation from "libs/client/useMutation";
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
 import { useEffect } from "react";
@@ -22,10 +23,14 @@ const Edit: NextPage = () => {
     setError,
     formState: { errors },
   } = useForm<IForm>();
+  const [mutateProfile, { loading }] = useMutation(`/api/users/me`);
   const onValid = ({ email, phone }: IForm) => {
     if (email === "" && phone === "") {
-      setError("formError", { message: "Email or Phone number are required" });
+      return setError("formError", {
+        message: "Email or Phone number are required",
+      });
     }
+    mutateProfile({ email, phone });
   };
 
   useEffect(() => {
@@ -64,7 +69,7 @@ const Edit: NextPage = () => {
             placeholder="xxx-xxxx-xxxx"
             prefix="+82"
           />
-          <Btn>Edit</Btn>
+          <Btn>{loading ? `Updating` : `Edit`}</Btn>
         </form>
         <span className="text-red-500 font-bold text-center">
           {errors.formError && errors.formError.message}
