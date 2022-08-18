@@ -29,7 +29,7 @@ const Sold: NextPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2">
         {data?.purchases?.map((purchase) => (
           <Link key={purchase.id} href={`/items/${purchase.productId}`}>
-            <div className="flex justify-between border-b px-4 py-5 cursor-pointer ">
+            <div className="flex justify-between border-b px-4 py`-5 cursor-pointer ">
               <ItemProfile
                 title={purchase.product.name}
                 price={purchase.product.price}
