@@ -52,13 +52,13 @@ const ItemDetail: NextPage = () => {
             <div className="h-80 bg-slate-300" />
             <Profile
               view
-              username={data.product.user.name}
-              userId={data.product.userId}
+              username={data.product?.user.name}
+              userId={data.product?.userId}
             />
             <Item
-              title={data.product.name}
-              price={data.product.price}
-              desc={data.product.description}
+              title={data.product?.name}
+              price={data.product?.price}
+              desc={data.product?.description}
             />
             <div className="mt-3 flex space-x-2 ">
               <Btn>Talk to Seller</Btn>
