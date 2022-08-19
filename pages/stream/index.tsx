@@ -2,19 +2,30 @@ import FloatingBtn from "@components/floatingBtn";
 import Layout from "@components/layout";
 import SmProfile from "@components/smProfile";
 import VideoSVG from "@components/svg/video";
+import { Stream } from "@prisma/client";
 import type { NextPage } from "next";
 import Link from "next/link";
+import useSWR from "swr";
+
+interface IData {
+  ok: boolean;
+  streams: Stream[];
+}
 
 const Stream: NextPage = () => {
+  const { data } = useSWR<IData>("/api/streams");
   return (
     <Layout title="Live" hasTabBar>
       <div className=" py-4 grid md:grid-cols-2 lg:grid-cols-3 ">
-        {[1, 2, 1, 1, 1].map((v, i) => {
+        {data?.streams?.map((stream) => {
           return (
-            <Link href={`stream/${i}`} key={i}>
+            <Link href={`stream/${stream.id}`} key={stream.id}>
               <div className="space-y-3 pt-3 pb-2 px-4">
                 <div className="w-full aspect-video bg-slate-300 rounded-md shadow-md " />
-                <SmProfile name="Lets try!" time="1hour ago" />
+                <SmProfile
+                  name={stream.name}
+                  time={(stream.createdAt + "").slice(0, 10)}
+                />
               </div>
             </Link>
           );

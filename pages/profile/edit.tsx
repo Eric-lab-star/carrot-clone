@@ -6,12 +6,18 @@ import useMutation from "libs/client/useMutation";
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 interface IForm {
   email?: string;
   phone?: string;
+  name?: string;
   formError?: string;
+}
+
+interface IEditResponse {
+  ok: boolean;
+  error?: string;
 }
 
 const Edit: NextPage = () => {
@@ -23,15 +29,22 @@ const Edit: NextPage = () => {
     setError,
     formState: { errors },
   } = useForm<IForm>();
-  const [mutateProfile, { loading }] = useMutation(`/api/users/me`);
-  const onValid = ({ email, phone }: IForm) => {
+  const [mutateProfile, { loading, data }] =
+    useMutation<IEditResponse>(`/api/users/me`);
+  const onValid = ({ email, phone, name }: IForm) => {
+    if (loading) return;
     if (email === "" && phone === "") {
       return setError("formError", {
         message: "Email or Phone number are required",
       });
     }
-    mutateProfile({ email, phone });
+    mutateProfile({ email, phone, name });
   };
+  useEffect(() => {
+    if (data && !data.ok && data.error) {
+      setError("formError", { message: data.error });
+    }
+  }, [data, setError]);
 
   useEffect(() => {
     if (user && user?.email !== null) {
@@ -39,6 +52,9 @@ const Edit: NextPage = () => {
     }
     if (user && user?.phone !== null) {
       setValue("phone", user.phone);
+    }
+    if (user) {
+      setValue("name", user.name);
     }
   }, [user, setValue]);
 
@@ -59,15 +75,23 @@ const Edit: NextPage = () => {
             </label>
           </div>
           <Input
+            register={register("name")}
+            label="Name"
+            placeholder="username"
+            type="text"
+          />
+          <Input
             register={register("email")}
             label="Email"
             placeholder="your@email.com"
+            type="email"
           />
           <Input
             register={register("phone")}
             label="Phone number"
             placeholder="xxx-xxxx-xxxx"
             prefix="+82"
+            type="number"
           />
           <Btn>{loading ? `Updating` : `Edit`}</Btn>
         </form>

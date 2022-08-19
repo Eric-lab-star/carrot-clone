@@ -4,9 +4,55 @@ import Product from "@components/product";
 import Received from "@components/received";
 import Send from "@components/send";
 import SmProfile from "@components/smProfile";
+import { Message, Stream, User } from "@prisma/client";
+import useMutation from "libs/client/useMutation";
+import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { userAgent } from "next/server";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import useSWR from "swr";
+
+interface IStream {
+  ok: boolean;
+  stream: IStreamWithUserandMsg;
+}
+
+interface IStreamWithUserandMsg extends Stream {
+  user: User;
+  message: IMessagewithUser[];
+}
+
+interface IMessagewithUser extends Message {
+  user: {
+    id: number;
+    avatar: string;
+  };
+}
+
+interface IMSG {
+  message: string;
+}
 
 const StreamDetail: NextPage = () => {
+  const {
+    query: { id },
+  } = useRouter();
+  const { data, mutate } = useSWR<IStream>(id ? `/api/streams/${id}` : null);
+  const { register, handleSubmit, reset } = useForm<IMSG>();
+  const [postMsg, { loading, data: response }] = useMutation<{ ok: true }>(
+    `/api/streams/${id}/msg`
+  );
+  const { user } = useUser();
+  const onValid = (message: IMSG) => {
+    if (loading) return;
+    reset();
+    postMsg({ ...message });
+  };
+  useEffect(() => {
+    if (response && response.ok) mutate();
+  }, [mutate, response]);
   return (
     <Layout title="Video" canGoBack>
       <div className="absolute inset-0 pt-10 flex flex-col h-screen md:grid md:grid-cols-[1fr_300px] md:grid-rows-[repeat(18,50px)]">
@@ -14,30 +60,43 @@ const StreamDetail: NextPage = () => {
           <div className="flex justify-center">
             <div className="w-full aspect-video bg-slate-300 shadow-md rounded-sm max-w-5xl" />
           </div>
-          <SmProfile name="Let's try something new" time="1hour" />
+          <SmProfile
+            name={data?.ok && data ? data.stream?.user.name : "Loading"}
+            time={
+              data?.ok && data
+                ? (data.stream?.createdAt + "").slice(0, 10)
+                : "loading"
+            }
+          />
           <div className="overflow-hidden h-32">
             <Product
-              title="IPhone"
-              price="150"
-              desc="My money's in that office,  money's in that office,  money's in that office,  money's in that office,  money's in that office,  money's in that office,  money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. "
+              title={data?.ok && data ? data?.stream?.name : "Loading"}
+              price={data?.ok && data ? data?.stream?.price : "Loading"}
+              desc={data?.ok && data ? data?.stream?.description : "Loading"}
             />
           </div>
         </div>
         <div className="px-4 ">
           <div className="h-72 md:h-[90vh] overflow-y-scroll shadow-inner ">
-            {[1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1].map((v, i) => {
+            {data?.stream?.message?.map((msg) => {
               return (
-                <div key={i}>
-                  <Received text="helloo" />
-                  <Send text="money's bullshit about it ain't there" />
+                <div key={msg.id}>
+                  {msg.user.id === user?.id ? (
+                    <Send text={msg.message} />
+                  ) : (
+                    <Received text={msg.message} />
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="flex-grow rounded-md bg-amber-500 row-start-[18] row-end-[18] col-start-2  ">
-          <MessageInput />
-        </div>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="flex-grow rounded-md bg-amber-500 row-start-[18] row-end-[18] col-start-2  "
+        >
+          <MessageInput register={register("message", { required: true })} />
+        </form>
       </div>
     </Layout>
   );
