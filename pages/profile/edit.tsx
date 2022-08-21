@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 import useMutation from "libs/client/useMutation";
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 
 interface IForm {
@@ -13,6 +13,7 @@ interface IForm {
   phone?: string;
   name?: string;
   formError?: string;
+  avatar?: FileList;
 }
 
 interface IEditResponse {
@@ -22,16 +23,19 @@ interface IEditResponse {
 
 const Edit: NextPage = () => {
   const { user } = useUser();
+  const [avatarPreview, setAvatarPreview] = useState("");
   const {
     register,
     handleSubmit,
     setValue,
     setError,
     formState: { errors },
+    watch,
   } = useForm<IForm>();
   const [mutateProfile, { loading, data }] =
     useMutation<IEditResponse>(`/api/users/me`);
-  const onValid = ({ email, phone, name }: IForm) => {
+  const onValid = ({ email, phone, name, avatar }: IForm) => {
+    return;
     if (loading) return;
     if (email === "" && phone === "") {
       return setError("formError", {
@@ -40,6 +44,15 @@ const Edit: NextPage = () => {
     }
     mutateProfile({ email, phone, name });
   };
+  const avatar = watch("avatar");
+  useEffect(() => {
+    if (avatar && avatar?.length > 0) {
+      const file = avatar[0];
+      const fileUrl = URL.createObjectURL(file);
+      setAvatarPreview(fileUrl);
+    }
+  }, [avatar]);
+
   useEffect(() => {
     if (data && !data.ok && data.error) {
       setError("formError", { message: data.error });
@@ -66,12 +79,21 @@ const Edit: NextPage = () => {
           className="mt-1 flex flex-col space-y-3"
         >
           <div className="flex justify-center items-center flex-col space-y-2">
-            <div className="w-56 aspect-square rounded-full bg-gray-500 " />
+            {avatarPreview ? (
+              <img
+                src={avatarPreview}
+                alt="profile"
+                className="w-56 aspect-square rounded-full bg-gray-500 "
+              />
+            ) : (
+              <div className="w-56 aspect-square rounded-full bg-gray-500 " />
+            )}
+
             <label>
               <span className=" bg-amber-500 text-white text-sm rounded-md p-1 cursor-pointer hover:bg-amber-600">
                 Change Photo
               </span>
-              <input type={"file"} className="hidden" />
+              <input {...register("avatar")} type={"file"} className="hidden" />
             </label>
           </div>
           <Input
