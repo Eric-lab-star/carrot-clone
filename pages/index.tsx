@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         <title>Home</title>
       </Head>
       <div className="grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2">
-        {data?.products.map((product) => (
+        {data?.products?.map((product) => (
           <Link key={product.id} href={`/items/${product.id}`}>
             <div className="flex justify-between border-b px-4 py-5 cursor-pointer ">
               <ItemProfile
