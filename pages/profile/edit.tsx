@@ -34,6 +34,7 @@ const Edit: NextPage = () => {
   } = useForm<IForm>();
   const [mutateProfile, { loading, data }] =
     useMutation<IEditResponse>(`/api/users/me`);
+
   const onValid = async ({ email, phone, name, avatar }: IForm) => {
     if (loading) return;
     if (email === "" && phone === "") {
@@ -41,16 +42,22 @@ const Edit: NextPage = () => {
         message: "Email or Phone number are required",
       });
     }
-    if (avatar && avatar.length > 0) {
+    if (avatar && avatar.length > 0 && user) {
       const cloudFlareReq = await fetch("/api/files");
-      const cloudFlareUrl = await cloudFlareReq.json();
-      console.log(cloudFlareUrl);
+      const { id, uploadURL } = await cloudFlareReq.json();
+      const form = new FormData();
+      form.append("file", avatar[0], user.id + "");
+      await fetch(uploadURL, {
+        method: "POST",
+        body: form,
+      });
       return;
       mutateProfile({ email, phone, name, avatar });
     } else {
       mutateProfile({ email, phone, name });
     }
   };
+
   const avatar = watch("avatar");
   useEffect(() => {
     if (avatar && avatar?.length > 0) {
