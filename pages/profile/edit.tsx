@@ -44,14 +44,13 @@ const Edit: NextPage = () => {
     }
     if (avatar && avatar.length > 0 && user) {
       const cloudFlareReq = await fetch("/api/files");
-      const { id, uploadURL } = await cloudFlareReq.json();
+      const { id: avatar, uploadURL } = await cloudFlareReq.json();
       const form = new FormData();
       form.append("file", avatar[0], user.id + "");
       await fetch(uploadURL, {
         method: "POST",
         body: form,
       });
-      return;
       mutateProfile({ email, phone, name, avatar });
     } else {
       mutateProfile({ email, phone, name });

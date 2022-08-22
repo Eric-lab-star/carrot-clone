@@ -2,15 +2,15 @@ import client from "libs/server/prismaclient";
 import withHandler, { IResponse } from "libs/server/withHandler";
 import { withApiSession } from "libs/server/withSession";
 import { NextApiRequest, NextApiResponse } from "next";
-import Id from "pages/api/posts/[id]";
-import { json } from "stream/consumers";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
   const {
     method,
     session: { user },
-    body: { email, phone, name },
+    body: { email, phone, name, avatar },
   } = req;
+  console.log("req.body", req.body);
+  console.log("req.method", req.method);
   if (method === "GET") {
     const profile = await client.user.findUnique({
       where: { id: req.session.user?.id },
@@ -83,7 +83,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
           name,
         },
       });
-      return res.json({ ok: true });
+    }
+    if (avatar) {
+      console.log("passed if avatar", avatar);
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar,
+        },
+      });
     }
     return res.json({ ok: true });
   }
