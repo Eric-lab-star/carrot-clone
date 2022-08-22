@@ -7,13 +7,14 @@ import UploadField from "@components/uploadField";
 import { Stream } from "@prisma/client";
 import useMutation from "libs/client/useMutation";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface IFrom {
   name: string;
   description: string;
   price: string;
+  photo?: FileList;
 }
 
 interface IResponse {
@@ -22,15 +23,34 @@ interface IResponse {
 }
 
 export default function UploadStream() {
-  const { register, handleSubmit } = useForm<IFrom>();
+  const { register, handleSubmit, watch } = useForm<IFrom>();
   const [postStream, { data, loading }] =
     useMutation<IResponse>("/api/streams");
-  const onValid = ({ name, price, description }: IFrom) => {
+  const onValid = async ({ name, price, description, photo }: IFrom) => {
     if (loading) return;
-    postStream({ name, price, description });
+    if (photo && photo.length > 0) {
+      const cloudFlareRes = await fetch("/api/files");
+      const { id, uploadURL } = await cloudFlareRes.json();
+      const form = new FormData();
+      form.append("file", photo[0]);
+      await fetch(uploadURL, {
+        method: "POST",
+        body: form,
+      });
+      postStream({ name, price, description, photo });
+    } else {
+      postStream({ name, price, description });
+    }
   };
   const router = useRouter();
-
+  const photo = watch("photo");
+  const [photoPreview, setPhotoPreview] = useState("");
+  useEffect(() => {
+    if (photo && photo.length > 0) {
+      const file = photo[0];
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  }, [photo]);
   useEffect(() => {
     if (data && data.ok) router.push(`/stream/${data?.stream.id}`);
   }, [router, data]);
@@ -38,7 +58,15 @@ export default function UploadStream() {
   return (
     <Layout title="Upload" canGoBack>
       <form onSubmit={handleSubmit(onValid)} className="py-6 px-6">
-        <UploadField SVG={<VideoSVG />} />
+        {photoPreview ? (
+          <img
+            src={photoPreview}
+            className="mb-3 rounded-md h-40 w-full flex justify-center items-center"
+          />
+        ) : (
+          <UploadField register={register("photo")} SVG={<VideoSVG />} />
+        )}
+
         <Input
           register={register("name")}
           label="Title"

@@ -30,7 +30,11 @@ const ProfileHome: NextPage = () => {
   return (
     <Layout title="Profile" hasTabBar>
       <div className="py-4 px-4 max-w-lg w-full mx-auto space-y-2">
-        <Profile username={user ? user.name : "Loading.."} edit />
+        <Profile
+          username={user ? user.name : "Loading.."}
+          edit
+          src={`https://imagedelivery.net/BRj20Xbg-lUinq49e-uUCw/${user?.avatar}/avatar`}
+        />
         <div className="flex justify-center items-center space-x-16">
           <Link href={"profile/sold"}>
             <a>

@@ -43,8 +43,8 @@ const Edit: NextPage = () => {
       });
     }
     if (avatar && avatar.length > 0 && user) {
-      const cloudFlareReq = await fetch("/api/files");
-      const { id: avatar, uploadURL } = await cloudFlareReq.json();
+      const cloudFlareRes = await fetch("/api/files");
+      const { id: avatar, uploadURL } = await cloudFlareRes.json();
       const form = new FormData();
       form.append("file", avatar[0], user.id + "");
       await fetch(uploadURL, {
@@ -73,14 +73,19 @@ const Edit: NextPage = () => {
   }, [data, setError]);
 
   useEffect(() => {
-    if (user && user?.email !== null) {
+    if (user?.email) {
       setValue("email", user.email);
     }
-    if (user && user?.phone !== null) {
+    if (user?.phone) {
       setValue("phone", user.phone);
     }
-    if (user) {
+    if (user?.name) {
       setValue("name", user.name);
+    }
+    if (user?.avatar) {
+      setAvatarPreview(
+        `https://imagedelivery.net/BRj20Xbg-lUinq49e-uUCw/${user?.avatar}/avatar`
+      );
     }
   }, [user, setValue]);
 

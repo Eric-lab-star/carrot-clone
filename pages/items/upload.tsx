@@ -8,22 +8,47 @@ import { Product } from "@prisma/client";
 import useMutation from "libs/client/useMutation";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 interface IUpload {
   ok: boolean;
   product: Product;
 }
 
+interface IUploadForm {
+  name: string;
+  price: string;
+  description: string;
+  photo: FileList;
+}
 const Upload: NextPage = () => {
   const [uploadProduct, { data, error, loading }] =
     useMutation<IUpload>("/api/products");
-  const { register, handleSubmit } = useForm<IUploadForm>();
-  const onValid = (data: IUploadForm) => {
+  const { register, handleSubmit, watch } = useForm<IUploadForm>();
+  const onValid = async ({ price, photo, description, name }: IUploadForm) => {
     if (loading) return;
-    uploadProduct(data);
+    if (photo && photo.length > 0) {
+      const cloudFlareRes = await fetch("/api/files");
+      const { id: photo, uploadURL } = await cloudFlareRes.json();
+      const form = new FormData();
+      form.append("file", photo[0]);
+      await fetch(uploadURL, {
+        method: "POST",
+        body: form,
+      });
+      uploadProduct({ price, photo, description, name });
+    }
+    uploadProduct({ price, photo, description, name });
   };
-
+  const photo = watch("photo");
+  const [preview, setPreview] = useState("");
+  useEffect(() => {
+    if (photo && photo.length > 0) {
+      const file = photo[0];
+      const fileURL = URL.createObjectURL(file);
+      setPreview(fileURL);
+    }
+  }, [photo]);
   const router = useRouter();
   useEffect(() => {
     if (data?.ok) {
@@ -34,7 +59,15 @@ const Upload: NextPage = () => {
   return (
     <Layout title="Upload" canGoBack>
       <form onSubmit={handleSubmit(onValid)} className="py-6 px-5">
-        <UploadField SVG={<PhotoSVG />} />
+        {preview ? (
+          <img
+            src={preview}
+            className="mb-3 rounded-md h-40 w-full flex justify-center items-center"
+          />
+        ) : (
+          <UploadField register={register("photo")} SVG={<PhotoSVG />} />
+        )}
+
         <Input
           required
           register={register("name", { required: true })}
@@ -60,11 +93,5 @@ const Upload: NextPage = () => {
     </Layout>
   );
 };
-
-interface IUploadForm {
-  name: string;
-  price: string;
-  description: string;
-}
 
 export default Upload;
