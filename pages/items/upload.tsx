@@ -29,14 +29,14 @@ const Upload: NextPage = () => {
     if (loading) return;
     if (photo && photo.length > 0) {
       const cloudFlareRes = await fetch("/api/files");
-      const { id: photo, uploadURL } = await cloudFlareRes.json();
+      const { id: photoID, uploadURL } = await cloudFlareRes.json();
       const form = new FormData();
-      form.append("file", photo[0]);
+      form.append("file", photo[0], name);
       await fetch(uploadURL, {
         method: "POST",
         body: form,
       });
-      uploadProduct({ price, photo, description, name });
+      uploadProduct({ price, photo: photoID, description, name });
     }
     uploadProduct({ price, photo, description, name });
   };

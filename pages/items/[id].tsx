@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import useMutation from "libs/client/useMutation";
-import { cls } from "libs/client/utils";
+import { cls, getImageDelivelyURL } from "libs/client/utils";
 import SolidHeart from "@components/svg/solidHeart";
 import fav from "pages/api/products/[id]/fav";
 
@@ -49,8 +49,18 @@ const ItemDetail: NextPage = () => {
         <div className="px-5 py-5 space-y-3">
           {/* item description div */}
           <div className="space-y-3">
-            <div className="h-80 bg-slate-300" />
+            {data.product.image ? (
+              <img
+                src={getImageDelivelyURL(data.product.image, "public")}
+                alt="product"
+                className="h-80 bg-slate-300 w-full"
+              />
+            ) : (
+              <div className="h-80 bg-slate-300" />
+            )}
+
             <Profile
+              src={getImageDelivelyURL(data.product.user.avatar, "avatar")}
               view
               username={data.product?.user.name}
               userId={data.product?.userId}
