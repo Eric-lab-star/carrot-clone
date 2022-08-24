@@ -6,7 +6,6 @@ import Profile from "@components/profile";
 import SmProfile from "@components/smProfile";
 import HeartSVG from "@components/svg/heart";
 import { Product } from "@prisma/client";
-import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,7 +13,7 @@ import useSWR from "swr";
 import useMutation from "libs/client/useMutation";
 import { cls, getImageDelivelyURL } from "libs/client/utils";
 import SolidHeart from "@components/svg/solidHeart";
-import fav from "pages/api/products/[id]/fav";
+import Image from "next/image";
 
 interface IData {
   ok: boolean;
@@ -50,11 +49,15 @@ const ItemDetail: NextPage = () => {
           {/* item description div */}
           <div className="space-y-3">
             {data.product.image ? (
-              <img
-                src={getImageDelivelyURL(data.product.image, "public")}
-                alt="product"
-                className="h-80 bg-slate-300 w-full"
-              />
+              <div className="h-80 relative">
+                <Image
+                  src={getImageDelivelyURL(data.product.image, "public")}
+                  alt="product"
+                  layout="fill"
+                  className="object-scale-down"
+                  priority
+                />
+              </div>
             ) : (
               <div className="h-80 bg-slate-300" />
             )}

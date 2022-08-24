@@ -11,7 +11,6 @@ import Layout from "../components/layout";
 import CommentSVG from "../components/svg/comment";
 import HeartSVG from "../components/svg/heart";
 import PlusSVG from "../components/svg/plus";
-
 interface IData {
   ok: boolean;
   products: ILikesNProduct[];
