@@ -9,8 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
     session: { user },
     body: { email, phone, name, avatar },
   } = req;
-  console.log("req.body", req.body);
-  console.log("req.method", req.method);
+
   if (method === "GET") {
     const profile = await client.user.findUnique({
       where: { id: req.session.user?.id },
@@ -85,7 +84,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<IResponse>) {
       });
     }
     if (avatar) {
-      console.log("passed if avatar", avatar);
       await client.user.update({
         where: {
           id: user?.id,

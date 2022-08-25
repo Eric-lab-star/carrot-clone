@@ -33,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     } = req;
     const parsedLat = parseFloat(lat!.toString());
     const parsedLong = parseFloat(long!.toString());
-    console.log(lat, long);
+
     const post = await client?.post.findMany({
       include: {
         user: {

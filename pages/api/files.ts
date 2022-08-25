@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${process.env.IMAGEID}/images/v2/direct_upload`,
+    `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLAREID}/images/v2/direct_upload`,
     {
       method: "POST",
       headers: {

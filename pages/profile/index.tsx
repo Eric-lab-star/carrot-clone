@@ -33,7 +33,11 @@ const ProfileHome: NextPage = () => {
         <Profile
           username={user ? user.name : "Loading.."}
           edit
-          src={`https://imagedelivery.net/BRj20Xbg-lUinq49e-uUCw/${user?.avatar}/avatar`}
+          src={
+            user?.avatar
+              ? `https://imagedelivery.net/BRj20Xbg-lUinq49e-uUCw/${user?.avatar}/avatar`
+              : ""
+          }
         />
         <div className="flex justify-center items-center space-x-16">
           <Link href={"profile/sold"}>

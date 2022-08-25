@@ -14,7 +14,6 @@ interface IFrom {
   name: string;
   description: string;
   price: string;
-  photo?: FileList;
 }
 
 interface IResponse {
@@ -26,7 +25,7 @@ export default function UploadStream() {
   const { register, handleSubmit, watch } = useForm<IFrom>();
   const [postStream, { data, loading }] =
     useMutation<IResponse>("/api/streams");
-  const onValid = async ({ name, price, description, photo }: IFrom) => {
+  const onValid = async ({ name, price, description }: IFrom) => {
     if (loading) return;
     if (photo && photo.length > 0) {
       const cloudFlareRes = await fetch("/api/files");
@@ -37,7 +36,7 @@ export default function UploadStream() {
         method: "POST",
         body: form,
       });
-      postStream({ name, price, description, photo });
+      postStream({ name, price, description });
     } else {
       postStream({ name, price, description });
     }
@@ -58,15 +57,6 @@ export default function UploadStream() {
   return (
     <Layout title="Upload" canGoBack>
       <form onSubmit={handleSubmit(onValid)} className="py-6 px-6">
-        {photoPreview ? (
-          <img
-            src={photoPreview}
-            className="mb-3 rounded-md h-40 w-full flex justify-center items-center"
-          />
-        ) : (
-          <UploadField register={register("photo")} SVG={<VideoSVG />} />
-        )}
-
         <Input
           register={register("name")}
           label="Title"

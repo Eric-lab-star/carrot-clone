@@ -5,6 +5,7 @@ import { User } from "@prisma/client";
 import useMutation from "libs/client/useMutation";
 import useUser from "libs/client/useUser";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 
@@ -32,10 +33,13 @@ const Edit: NextPage = () => {
     formState: { errors },
     watch,
   } = useForm<IForm>();
+  const [clicked, setClicked] = useState(false);
+  const [posting, setPosting] = useState(false);
   const [mutateProfile, { loading, data }] =
     useMutation<IEditResponse>(`/api/users/me`);
-
+  const router = useRouter();
   const onValid = async ({ email, phone, name, avatar }: IForm) => {
+    setClicked(true);
     if (loading) return;
     if (email === "" && phone === "") {
       return setError("formError", {
@@ -43,20 +47,28 @@ const Edit: NextPage = () => {
       });
     }
     if (avatar && avatar.length > 0 && user) {
+      setPosting(true);
       const cloudFlareRes = await fetch("/api/files");
-      const { id: avatar, uploadURL } = await cloudFlareRes.json();
+      const { id: avatarId, uploadURL } = await cloudFlareRes.json();
       const form = new FormData();
       form.append("file", avatar[0], user.id + "");
       await fetch(uploadURL, {
         method: "POST",
         body: form,
       });
-      mutateProfile({ email, phone, name, avatar });
+      mutateProfile({ email, phone, name, avatar: avatarId });
+      setPosting(false);
     } else {
+      setPosting(true);
       mutateProfile({ email, phone, name });
+      setPosting(false);
     }
   };
-
+  useEffect(() => {
+    if (clicked && !posting && !loading) {
+      router.push("/profile");
+    }
+  }, [clicked, router, loading, posting]);
   const avatar = watch("avatar");
   useEffect(() => {
     if (avatar && avatar?.length > 0) {
@@ -133,7 +145,7 @@ const Edit: NextPage = () => {
             prefix="+82"
             type="number"
           />
-          <Btn>{loading ? `Updating` : `Edit`}</Btn>
+          <Btn>{clicked ? "Updating" : loading ? "Updating" : "Edit"}</Btn>
         </form>
         <span className="text-red-500 font-bold text-center">
           {errors.formError && errors.formError.message}

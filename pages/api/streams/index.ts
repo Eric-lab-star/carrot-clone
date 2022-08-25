@@ -10,6 +10,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     method,
   } = req;
   if (method === "POST") {
+    const response = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLAREID}/stream/live_inputs`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.STREAMTOKEN}`,
+        },
+        body: `{"meta":{"name":"${name}"},"recording":{"mode":"automatic","timeoutSeconds":10}}`,
+      }
+    );
+    const json = await response.json();
+    console.log(json);
     const stream = await client.stream.create({
       data: {
         name,
@@ -20,6 +32,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             id: user?.id,
           },
         },
+        streamId: "",
+        cloudflareKey: "",
+        cloudflareURL: "",
       },
     });
     return res.json({
