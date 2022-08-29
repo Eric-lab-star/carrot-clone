@@ -6,6 +6,7 @@ import client from "libs/server/prismaclient";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { id },
+    session: { user },
   } = req;
   const stream = await client.stream.findUnique({
     where: {
@@ -27,6 +28,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       user: true,
     },
   });
+  const isOwner = stream?.userId === user?.id;
+
+  if (stream && !isOwner) {
+    stream.cloudflareURL = "xxxx";
+    stream.cloudflareKey = "xxxx";
+  }
 
   return res.json({
     ok: true,

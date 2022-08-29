@@ -20,8 +20,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         body: `{"meta":{"name":"${name}"},"recording":{"mode":"automatic","timeoutSeconds":10}}`,
       }
     );
-    const json = await response.json();
-    console.log(json);
+    const {
+      result: {
+        uid,
+        rtmps: { url, streamKey },
+      },
+    } = await response.json();
     const stream = await client.stream.create({
       data: {
         name,
@@ -32,9 +36,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             id: user?.id,
           },
         },
-        streamId: "",
-        cloudflareKey: "",
-        cloudflareURL: "",
+        streamId: uid,
+        cloudflareKey: streamKey,
+        cloudflareURL: url,
       },
     });
     return res.json({
@@ -43,10 +47,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
   }
   if (method === "GET") {
-    const streams = await client.stream.findMany({
-      take: 10,
-      skip: 10,
-    });
+    const streams = await client.stream.findMany({});
     return res.json({
       ok: true,
       streams,

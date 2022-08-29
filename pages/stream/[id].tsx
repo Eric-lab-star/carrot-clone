@@ -58,7 +58,16 @@ const StreamDetail: NextPage = () => {
       <div className="absolute inset-0 pt-10 flex flex-col h-screen md:grid md:grid-cols-[1fr_300px] md:grid-rows-[repeat(18,50px)]">
         <div className=" space-y-3 px-4 py-4 drop-shadow-md md:col-span-1 ">
           <div className="flex justify-center">
-            <div className="w-full aspect-video bg-slate-300 shadow-md rounded-sm max-w-5xl" />
+            <div className="w-full aspect-video bg-slate-300 shadow-md rounded-sm max-w-5xl">
+              {data?.stream?.streamId ? (
+                <iframe
+                  src={`https://customer-0wkgle0u5ylndt4q.cloudflarestream.com/${data?.stream?.streamId}/iframe`}
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowFullScreen={true}
+                  className="w-full aspect-video bg-slate-300 shadow-md rounded-sm max-w-5xl"
+                />
+              ) : null}
+            </div>
           </div>
           <SmProfile
             name={data?.ok && data ? data.stream?.user.name : "Loading"}
@@ -74,6 +83,11 @@ const StreamDetail: NextPage = () => {
               price={data?.ok && data ? data?.stream?.price : "Loading"}
               desc={data?.ok && data ? data?.stream?.description : "Loading"}
             />
+          </div>
+          <div>
+            <div>KEY: {data?.stream.cloudflareKey}</div>
+            <div>URL: {data?.stream.cloudflareURL}</div>
+            <div>ID: {data?.stream.streamId}</div>
           </div>
         </div>
         <div className="px-4 ">

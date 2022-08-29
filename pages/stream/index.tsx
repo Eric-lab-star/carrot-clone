@@ -4,6 +4,7 @@ import SmProfile from "@components/smProfile";
 import VideoSVG from "@components/svg/video";
 import { Stream } from "@prisma/client";
 import type { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 
@@ -21,7 +22,13 @@ const Stream: NextPage = () => {
           return (
             <Link href={`stream/${stream.id}`} key={stream.id}>
               <div className="space-y-3 pt-3 pb-2 px-4">
-                <div className="w-full aspect-video bg-slate-300 rounded-md shadow-md " />
+                <div className="w-full aspect-video overflow-hidden bg-slate-300 rounded-md shadow-md relative">
+                  <Image
+                    src={`https://customer-m033z5x00ks6nunl.cloudflarestream.com/${stream.streamId}/thumbnails/thumbnail.jpg?height=270`}
+                    layout="fill"
+                    alt="thumbnail"
+                  />
+                </div>
                 <SmProfile
                   name={stream.name}
                   time={(stream.createdAt + "").slice(0, 10)}
